@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Offline Contacts</title>
+<style>
+  body {
+    background-color: #000;
+    color: #fff;
+    font-family: sans-serif;
+    font-size: 14px;
+    margin: 0;
+    padding: 4px;
+  }
+  h2 {
+    font-size: 15px;
+    margin: 2px 0;
+    text-align: center;
+    background: #222;
+    padding: 3px;
+  }
+  input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 4px;
+    font-size: 14px;
+    background: #111;
+    color: #fff;
+    border: 1px solid #444;
+    margin-bottom: 4px;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 220px;
+    overflow-y: auto;
+  }
+  li {
+    padding: 5px 3px;
+    border-bottom: 1px solid #222;
+    cursor: pointer;
+  }
+  li.selected {
+    background-color: #333;
+    color: #ff0;
+    font-weight: bold;
+  }
+  .name {
+    font-weight: bold;
+    display: block;
+  }
+  .phone {
+    font-size: 12px;
+    color: #aaa;
+  }
+  #status {
+    font-size: 11px;
+    color: #888;
+    text-align: center;
+    margin-top: 2px;
+  }
+</style>
+</head>
+<body>
+  <h2>Contacts (429)</h2>
+  <input type="text" id="search" placeholder="Type to search..." autofocus oninput="filterList()">
+  <ul id="list">
+    <li tabindex="0" data-phone="+919434691362" onclick="callNum('+919434691362')"><span class="name">Aide cop</span><span class="phone">+919434691362</span></li>
+    <li tabindex="0" data-phone="+919126176773" onclick="callNum('+919126176773')"><span class="name">Satyaki brc</span><span class="phone">+919126176773</span></li>
+    <li tabindex="0" data-phone="+918906160774" onclick="callNum('+918906160774')"><span class="name">mousumi di</span><span class="phone">+918906160774</span></li>
+    <li tabindex="0" data-phone="+917872522934" onclick="callNum('+917872522934')"><span class="name">Chiru zoo</span><span class="phone">+917872522934</span></li>
+    <li tabindex="0" data-phone="198" onclick="callNum('198')"><span class="name">Complaint Helpline</span><span class="phone">198</span></li>
+    <li tabindex="0" data-phone="55500" onclick="callNum('55500')"><span class="name">Voice Station</span><span class="phone">55500</span></li>
+    <li tabindex="0" data-phone="125" onclick="callNum('125')"><span class="name">BalanceEnquiry</span><span class="phone">125</span></li>
+    <li tabindex="0" data-phone="1214" onclick="callNum('1214')"><span class="name">VAS Helpline</span><span class="phone">1214</span></li>
+    <li tabindex="0" data-phone="+380686961914" onclick="callNum('+380686961914')"><span class="name">Olga</span><span class="phone">+380686961914</span></li>
+    <li tabindex="0" data-phone="+918670567596" onclick="callNum('+918670567596')"><span class="name">Jayashree chandra</span><span class="phone">+918670567596</span></li>
+    <li tabindex="0" data-phone="+919732236045" onclick="callNum('+919732236045')"><span class="name">sudeshna goswami</span><span class="phone">+919732236045</span></li>
+    <li tabindex="0" data-phone="+918942804795" onclick="callNum('+918942804795')"><span class="name">krishnendu patra</span><span class="phone">+918942804795</span></li>
+    <li tabindex="0" data-phone="8882888426" onclick="callNum('8882888426')"><span class="name">Anurag Tanka NIA</span><span class="phone">8882888426</span></li>
+    <li tabindex="0" data-phone="+919734750500" onclick="callNum('+919734750500')"><span class="name">Saumitra Mohan DM sir</span><span class="phone">+919734750500</span></li>
+    <li tabindex="0" data-phone="+496221413362" onclick="callNum('+496221413362')"><span class="name">Annette Scolch Germany</span><span class="phone">+496221413362</span></li>
+    <li tabindex="0" data-phone="+917076080164" onclick="callNum('+917076080164')"><span class="name">Chrliranjit New Goyala</span><span class="phone">+917076080164</span></li>
+    <li tabindex="0" data-phone="+919563566783" onclick="callNum('+919563566783')"><span class="name">Pronoy</span><span class="phone">+919563566783</span></li>
+    <li tabindex="0" data-phone="+918372929701" onclick="callNum('+918372929701')"><span class="name">Koyel</span><span class="phone">+918372929701</span></li>
+    <li tabindex="0" data-phone="+918759579686" onclick="callNum('+918759579686')"><span class="name">Piu</span><span class="phone">+918759579686</span></li>
+    <li tabindex="0" data-phone="+918537058989" onclick="callNum('+918537058989')"><span class="name">Nilamjana 2</span><span class="phone">+918537058989</span></li>
+    <li tabindex="0" data-phone="+919433567851" onclick="callNum('+919433567851')"><span class="name">Soumyakanti RI</span><span class="phone">+919433567851</span></li>
+    <li tabindex="0" data-phone="+918961239957" onclick="callNum('+918961239957')"><span class="name">Shinjini RI</span><span class="phone">+918961239957</span></li>
+    <li tabindex="0" data-phone="+919614977504" onclick="callNum('+919614977504')"><span class="name">Subhasree Dey</span><span class="phone">+919614977504</span></li>
+    <li tabindex="0" data-phone="+919474094025" onclick="callNum('+919474094025')"><span class="name">Shrabani</span><span class="phone">+919474094025</span></li>
+    <li tabindex="0" data-phone="+918906974375" onclick="callNum('+918906974375')"><span class="name">Chitanjit Ghosh</span><span class="phone">+918906974375</span></li>
+    <li tabindex="0" data-phone="+919563791908" onclick="callNum('+919563791908')"><span class="name">Sunith Mondol</span><span class="phone">+919563791908</span></li>
+    <li tabindex="0" data-phone="+918372953734" onclick="callNum('+918372953734')"><span class="name">Mou Mompi</span><span class="phone">+918372953734</span></li>
+    <li tabindex="0" data-phone="+919614596008" onclick="callNum('+919614596008')"><span class="name">Satyajit Nandi</span><span class="phone">+919614596008</span></li>
+    <li tabindex="0" data-phone="+917031730238" onclick="callNum('+917031730238')"><span class="name">Buruniv Gal</span><span class="phone">+917031730238</span></li>
+    <li tabindex="0" data-phone="+919531710161" onclick="callNum('+919531710161')"><span class="name">Rumi Acharya</span><span class="phone">+919531710161</span></li>
+    <li tabindex="0" data-phone="+919434050500" onclick="callNum('+919434050500')"><span class="name">New BURDWAN DM</span><span class="phone">+919434050500</span></li>
+    <li tabindex="0" data-phone="8016945496" onclick="callNum('8016945496')"><span class="name">Bijoy SMART</span><span class="phone">8016945496</span></li>
+    <li tabindex="0" data-phone="112" onclick="callNum('112')"><span class="name">Distress Number</span><span class="phone">112</span></li>
+    <li tabindex="0" data-phone="18003001947" onclick="callNum('18003001947')"><span class="name">UIDAI</span><span class="phone">18003001947</span></li>
+    <li tabindex="0" data-phone="9333238608" onclick="callNum('9333238608')"><span class="name">Kanu Pioneer Cable</span><span class="phone">9333238608</span></li>
+    <li tabindex="0" data-phone="+919475693708" onclick="callNum('+919475693708')"><span class="name">Ramij BU Class</span><span class="phone">+919475693708</span></li>
+    <li tabindex="0" data-phone="+908927373384" onclick="callNum('+908927373384')"><span class="name">Rahul (Asrafuddoza Hazari)</span><span class="phone">+908927373384</span></li>
+    <li tabindex="0" data-phone="+919434573881" onclick="callNum('+919434573881')"><span class="name">G c Sir</span><span class="phone">+919434573881</span></li>
+    <li tabindex="0" data-phone="19733272755" onclick="callNum('19733272755')"><span class="name">Saroj Chakraborty</span><span class="phone">19733272755</span></li>
+    <li tabindex="0" data-phone="94340008414" onclick="callNum('94340008414')"><span class="name">Subho Sc Faculty BU</span><span class="phone">94340008414</span></li>
+    <li tabindex="0" data-phone="+11917602754332" onclick="callNum('+11917602754332')"><span class="name">Arup Biswas</span><span class="phone">+11917602754332</span></li>
+    <li tabindex="0" data-phone="119153246630" onclick="callNum('119153246630')"><span class="name">Aftabul Alam da</span><span class="phone">119153246630</span></li>
+    <li tabindex="0" data-phone="+111917908630821" onclick="callNum('+111917908630821')"><span class="name">Nirupana</span><span class="phone">+111917908630821</span></li>
+    <li tabindex="0" data-phone="+1917872181987" onclick="callNum('+1917872181987')"><span class="name">Abhishek Bhattacharya MA</span><span class="phone">+1917872181987</span></li>
+    <li tabindex="0" data-phone="7001572087" onclick="callNum('7001572087')"><span class="name">Rajat Da</span><span class="phone">7001572087</span></li>
+    <li tabindex="0" data-phone="7001900065" onclick="callNum('7001900065')"><span class="name">Gandhi</span><span class="phone">7001900065</span></li>
+    <li tabindex="0" data-phone="+919064701130" onclick="callNum('+919064701130')"><span class="name">Boro pCmoni</span><span class="phone">+919064701130</span></li>
+    <li tabindex="0" data-phone="9083668608" onclick="callNum('9083668608')"><span class="name">Subhasree Choubey</span><span class="phone">9083668608</span></li>
+    <li tabindex="0" data-phone="+918884002020" onclick="callNum('+918884002020')"><span class="name">Zerodahh</span><span class="phone">+918884002020</span></li>
+    <li tabindex="0" data-phone="119775731777" onclick="callNum('119775731777')"><span class="name">kaushik das</span><span class="phone">119775731777</span></li>
+    <li tabindex="0" data-phone="+917254844511" onclick="callNum('+917254844511')"><span class="name">Q unicorn</span><span class="phone">+917254844511</span></li>
+    <li tabindex="0" data-phone="119647149717" onclick="callNum('119647149717')"><span class="name">Mun Di</span><span class="phone">119647149717</span></li>
+    <li tabindex="0" data-phone="+91118372070230" onclick="callNum('+91118372070230')"><span class="name">Debismita</span><span class="phone">+91118372070230</span></li>
+    <li tabindex="0" data-phone="+9129475155718" onclick="callNum('+9129475155718')"><span class="name">Soumyodeep</span><span class="phone">+9129475155718</span></li>
+    <li tabindex="0" data-phone="+91669775044033" onclick="callNum('+91669775044033')"><span class="name">Arnab</span><span class="phone">+91669775044033</span></li>
+    <li tabindex="0" data-phone="+9189672695813" onclick="callNum('+9189672695813')"><span class="name">Puchki</span><span class="phone">+9189672695813</span></li>
+    <li tabindex="0" data-phone="+91119547382866" onclick="callNum('+91119547382866')"><span class="name">Sushma</span><span class="phone">+91119547382866</span></li>
+    <li tabindex="0" data-phone="+91669476353825" onclick="callNum('+91669476353825')"><span class="name">Agnibina Paul</span><span class="phone">+91669476353825</span></li>
+    <li tabindex="0" data-phone="+91229674169703" onclick="callNum('+91229674169703')"><span class="name">Maitree Mitra</span><span class="phone">+91229674169703</span></li>
+    <li tabindex="0" data-phone="+91118145036454" onclick="callNum('+91118145036454')"><span class="name">Souvik Da dada</span><span class="phone">+91118145036454</span></li>
+    <li tabindex="0" data-phone="+918637365739" onclick="callNum('+918637365739')"><span class="name">Niranjan Gupta</span><span class="phone">+918637365739</span></li>
+    <li tabindex="0" data-phone="+85251350247" onclick="callNum('+85251350247')"><span class="name">Shounak Mota</span><span class="phone">+85251350247</span></li>
+    <li tabindex="0" data-phone="7003611010" onclick="callNum('7003611010')"><span class="name">Jugol Da Water Joka 370-120</span><span class="phone">7003611010</span></li>
+    <li tabindex="0" data-phone="8918862082" onclick="callNum('8918862082')"><span class="name">Kartik Babu Principal Jamalpur</span><span class="phone">8918862082</span></li>
+    <li tabindex="0" data-phone="8918013887" onclick="callNum('8918013887')"><span class="name">Naba Sir</span><span class="phone">8918013887</span></li>
+    <li tabindex="0" data-phone="+9129475317388" onclick="callNum('+9129475317388')"><span class="name">Surya Mukherjee</span><span class="phone">+9129475317388</span></li>
+    <li tabindex="0" data-phone="+61447076295" onclick="callNum('+61447076295')"><span class="name">Ryan Coleman</span><span class="phone">+61447076295</span></li>
+    <li tabindex="0" data-phone="+9916297923615" onclick="callNum('+9916297923615')"><span class="name">Somnath Brc Raj College</span><span class="phone">+9916297923615</span></li>
+    <li tabindex="0" data-phone="9832920223" onclick="callNum('9832920223')"><span class="name">Bikky Chowdhury paramount Cake</span><span class="phone">9832920223</span></li>
+    <li tabindex="0" data-phone="03323508103" onclick="callNum('03323508103')"><span class="name">Dhar Brothers Thesis</span><span class="phone">03323508103</span></li>
+    <li tabindex="0" data-phone="+9917001882850" onclick="callNum('+9917001882850')"><span class="name">Jasmin Da</span><span class="phone">+9917001882850</span></li>
+    <li tabindex="0" data-phone="+918900206383" onclick="callNum('+918900206383')"><span class="name">Ma Ladakh 4g</span><span class="phone">+918900206383</span></li>
+    <li tabindex="0" data-phone="+91009332291400" onclick="callNum('+91009332291400')"><span class="name">Gautam Star Binding</span><span class="phone">+91009332291400</span></li>
+    <li tabindex="0" data-phone="+91998240775476" onclick="callNum('+91998240775476')"><span class="name">Gautam Da Star Binding</span><span class="phone">+91998240775476</span></li>
+    <li tabindex="0" data-phone="+133683539421" onclick="callNum('+133683539421')"><span class="name">Althina L'Croissoint</span><span class="phone">+133683539421</span></li>
+    <li tabindex="0" data-phone="+447955126699" onclick="callNum('+447955126699')"><span class="name">German DAAD scholarship</span><span class="phone">+447955126699</span></li>
+    <li tabindex="0" data-phone="8343029131" onclick="callNum('8343029131')"><span class="name">Suman Bir</span><span class="phone">8343029131</span></li>
+    <li tabindex="0" data-phone="03422541376" onclick="callNum('03422541376')"><span class="name">Khukudidi</span><span class="phone">03422541376</span></li>
+    <li tabindex="0" data-phone="8900172768" onclick="callNum('8900172768')"><span class="name">K</span><span class="phone">8900172768</span></li>
+    <li tabindex="0" data-phone="8900030955" onclick="callNum('8900030955')"><span class="name">Guru</span><span class="phone">8900030955</span></li>
+    <li tabindex="0" data-phone="9434163363" onclick="callNum('9434163363')"><span class="name">Anirban Roychiwdhyri</span><span class="phone">9434163363</span></li>
+    <li tabindex="0" data-phone="7074029850" onclick="callNum('7074029850')"><span class="name">Sunanda Garai</span><span class="phone">7074029850</span></li>
+    <li tabindex="0" data-phone="+918272977969" onclick="callNum('+918272977969')"><span class="name">Abhisek</span><span class="phone">+918272977969</span></li>
+    <li tabindex="0" data-phone="8900503580" onclick="callNum('8900503580')"><span class="name">Agan</span><span class="phone">8900503580</span></li>
+    <li tabindex="0" data-phone="8906778993" onclick="callNum('8906778993')"><span class="name">Me</span><span class="phone">8906778993</span></li>
+    <li tabindex="0" data-phone="9126037361" onclick="callNum('9126037361')"><span class="name">Sir wbcs new</span><span class="phone">9126037361</span></li>
+    <li tabindex="0" data-phone="+918906083188" onclick="callNum('+918906083188')"><span class="name">smart girl 1</span><span class="phone">+918906083188</span></li>
+    <li tabindex="0" data-phone="+918373052851" onclick="callNum('+918373052851')"><span class="name">smart ? 2</span><span class="phone">+918373052851</span></li>
+    <li tabindex="0" data-phone="+918697983875" onclick="callNum('+918697983875')"><span class="name">Arup Da bari</span><span class="phone">+918697983875</span></li>
+    <li tabindex="0" data-phone="+919563950910" onclick="callNum('+919563950910')"><span class="name">sayoni di smart</span><span class="phone">+919563950910</span></li>
+    <li tabindex="0" data-phone="+919474888679" onclick="callNum('+919474888679')"><span class="name">Sudeshna Goswami</span><span class="phone">+919474888679</span></li>
+    <li tabindex="0" data-phone="+918918045131" onclick="callNum('+918918045131')"><span class="name">Khukudi</span><span class="phone">+918918045131</span></li>
+    <li tabindex="0" data-phone="8926142725" onclick="callNum('8926142725')"><span class="name">Basu Cyclist</span><span class="phone">8926142725</span></li>
+    <li tabindex="0" data-phone="+918902297104" onclick="callNum('+918902297104')"><span class="name">Susovon Da</span><span class="phone">+918902297104</span></li>
+    <li tabindex="0" data-phone="+918240361353" onclick="callNum('+918240361353')"><span class="name">Mouli Hrs</span><span class="phone">+918240361353</span></li>
+    <li tabindex="0" data-phone="+919999999988" onclick="callNum('+919999999988')"><span class="name">Arindam Chowdhuri IIPM DA</span><span class="phone">+919999999988</span></li>
+    <li tabindex="0" data-phone="9564661492" onclick="callNum('9564661492')"><span class="name">animesh da</span><span class="phone">9564661492</span></li>
+    <li tabindex="0" data-phone="09411302912" onclick="callNum('09411302912')"><span class="name">Rajesh UNCLE NAINITAL</span><span class="phone">09411302912</span></li>
+    <li tabindex="0" data-phone="+8801521309191" onclick="callNum('+8801521309191')"><span class="name">Sajib Roy</span><span class="phone">+8801521309191</span></li>
+    <li tabindex="0" data-phone="+60173489486" onclick="callNum('+60173489486')"><span class="name">Sharif Bangladesh</span><span class="phone">+60173489486</span></li>
+    <li tabindex="0" data-phone="9732423332" onclick="callNum('9732423332')"><span class="name">Cifri</span><span class="phone">9732423332</span></li>
+    <li tabindex="0" data-phone="9635142315" onclick="callNum('9635142315')"><span class="name">Shantanu Tv</span><span class="phone">9635142315</span></li>
+    <li tabindex="0" data-phone="8348064403" onclick="callNum('8348064403')"><span class="name">Sudeshna Bookfair</span><span class="phone">8348064403</span></li>
+    <li tabindex="0" data-phone="8653890740" onclick="callNum('8653890740')"><span class="name">Payel Bu</span><span class="phone">8653890740</span></li>
+    <li tabindex="0" data-phone="+917098034417" onclick="callNum('+917098034417')"><span class="name">Xerox Da Sandip</span><span class="phone">+917098034417</span></li>
+    <li tabindex="0" data-phone="9153056951" onclick="callNum('9153056951')"><span class="name">Amit Gupta</span><span class="phone">9153056951</span></li>
+    <li tabindex="0" data-phone="9434167800" onclick="callNum('9434167800')"><span class="name">Sadhan Jamaibabu</span><span class="phone">9434167800</span></li>
+    <li tabindex="0" data-phone="7477587995" onclick="callNum('7477587995')"><span class="name">Sona North Bengal</span><span class="phone">7477587995</span></li>
+    <li tabindex="0" data-phone="+14849453927" onclick="callNum('+14849453927')"><span class="name">Sonamonididi</span><span class="phone">+14849453927</span></li>
+    <li tabindex="0" data-phone="7000770007" onclick="callNum('7000770007')"><span class="name">My Jio</span><span class="phone">7000770007</span></li>
+    <li tabindex="0" data-phone="9614228207" onclick="callNum('9614228207')"><span class="name">Rishitanu ghosh</span><span class="phone">9614228207</span></li>
+    <li tabindex="0" data-phone="9433233849" onclick="callNum('9433233849')"><span class="name">Kaka</span><span class="phone">9433233849</span></li>
+    <li tabindex="0" data-phone="+917001499031" onclick="callNum('+917001499031')"><span class="name">Bharu Abhishek Jha</span><span class="phone">+917001499031</span></li>
+    <li tabindex="0" data-phone="9433894741" onclick="callNum('9433894741')"><span class="name">Srikanta Kaku</span><span class="phone">9433894741</span></li>
+    <li tabindex="0" data-phone="9434673953" onclick="callNum('9434673953')"><span class="name">Dr. Udit Bhattacharya</span><span class="phone">9434673953</span></li>
+    <li tabindex="0" data-phone="8972752487" onclick="callNum('8972752487')"><span class="name">Amit Great eastern</span><span class="phone">8972752487</span></li>
+    <li tabindex="0" data-phone="+919609425419" onclick="callNum('+919609425419')"><span class="name">S Samanta</span><span class="phone">+919609425419</span></li>
+    <li tabindex="0" data-phone="+919046114611" onclick="callNum('+919046114611')"><span class="name">Ashwani Bhatia</span><span class="phone">+919046114611</span></li>
+    <li tabindex="0" data-phone="9434225289" onclick="callNum('9434225289')"><span class="name">Bikash Bandopadhyay</span><span class="phone">9434225289</span></li>
+    <li tabindex="0" data-phone="8670414074" onclick="callNum('8670414074')"><span class="name">Roshmi</span><span class="phone">8670414074</span></li>
+    <li tabindex="0" data-phone="+918509004736" onclick="callNum('+918509004736')"><span class="name">Akib Ali</span><span class="phone">+918509004736</span></li>
+    <li tabindex="0" data-phone="9477942825" onclick="callNum('9477942825')"><span class="name">Didivhai</span><span class="phone">9477942825</span></li>
+    <li tabindex="0" data-phone="9830497921" onclick="callNum('9830497921')"><span class="name">Titum Didi</span><span class="phone">9830497921</span></li>
+    <li tabindex="0" data-phone="+918250331419" onclick="callNum('+918250331419')"><span class="name">Arpita pal Brc</span><span class="phone">+918250331419</span></li>
+    <li tabindex="0" data-phone="9596975213" onclick="callNum('9596975213')"><span class="name">Shahid Leh</span><span class="phone">9596975213</span></li>
+    <li tabindex="0" data-phone="9091408411" onclick="callNum('9091408411')"><span class="name">Rocky Driver</span><span class="phone">9091408411</span></li>
+    <li tabindex="0" data-phone="+917001727374" onclick="callNum('+917001727374')"><span class="name">Saptarshi</span><span class="phone">+917001727374</span></li>
+    <li tabindex="0" data-phone="8918814249" onclick="callNum('8918814249')"><span class="name">Driver Da</span><span class="phone">8918814249</span></li>
+    <li tabindex="0" data-phone="7872511584" onclick="callNum('7872511584')"><span class="name">Nilanjan das</span><span class="phone">7872511584</span></li>
+    <li tabindex="0" data-phone="9474106488" onclick="callNum('9474106488')"><span class="name">Kasem Da</span><span class="phone">9474106488</span></li>
+    <li tabindex="0" data-phone="+919711840658" onclick="callNum('+919711840658')"><span class="name">Nitin Sir</span><span class="phone">+919711840658</span></li>
+    <li tabindex="0" data-phone="9433222433" onclick="callNum('9433222433')"><span class="name">Dr Shyamalendu Mitra</span><span class="phone">9433222433</span></li>
+    <li tabindex="0" data-phone="9903400417" onclick="callNum('9903400417')"><span class="name">Debmalya Da</span><span class="phone">9903400417</span></li>
+    <li tabindex="0" data-phone="9450614059" onclick="callNum('9450614059')"><span class="name">Sanjay Sir</span><span class="phone">9450614059</span></li>
+    <li tabindex="0" data-phone="+918145733419" onclick="callNum('+918145733419')"><span class="name">Riya wbcs</span><span class="phone">+918145733419</span></li>
+    <li tabindex="0" data-phone="+918209237459" onclick="callNum('+918209237459')"><span class="name">Ashwani Kumar</span><span class="phone">+918209237459</span></li>
+    <li tabindex="0" data-phone="9749427646" onclick="callNum('9749427646')"><span class="name">Srijani Roychowdhury</span><span class="phone">9749427646</span></li>
+    <li tabindex="0" data-phone="+918348438764" onclick="callNum('+918348438764')"><span class="name">Souvik Mitra Da Asansol</span><span class="phone">+918348438764</span></li>
+    <li tabindex="0" data-phone="9418477211" onclick="callNum('9418477211')"><span class="name">Gupta Sir Coimbatore</span><span class="phone">9418477211</span></li>
+    <li tabindex="0" data-phone="7001694734" onclick="callNum('7001694734')"><span class="name">Bilash Sir</span><span class="phone">7001694734</span></li>
+    <li tabindex="0" data-phone="008250389663" onclick="callNum('008250389663')"><span class="name">Utpal Bhattacharya Da</span><span class="phone">008250389663</span></li>
+    <li tabindex="0" data-phone="9647681397" onclick="callNum('9647681397')"><span class="name">Bubai Dutta Da</span><span class="phone">9647681397</span></li>
+    <li tabindex="0" data-phone="+330642905817" onclick="callNum('+330642905817')"><span class="name">emer</span><span class="phone">+330642905817</span></li>
+    <li tabindex="0" data-phone="9868945422" onclick="callNum('9868945422')"><span class="name">Arindam Sir</span><span class="phone">9868945422</span></li>
+    <li tabindex="0" data-phone="8348235229" onclick="callNum('8348235229')"><span class="name">Canara Bank</span><span class="phone">8348235229</span></li>
+    <li tabindex="0" data-phone="+918697924217" onclick="callNum('+918697924217')"><span class="name">Sourav DM</span><span class="phone">+918697924217</span></li>
+    <li tabindex="0" data-phone="9832290859" onclick="callNum('9832290859')"><span class="name">Madan Ghosh Electrician</span><span class="phone">9832290859</span></li>
+    <li tabindex="0" data-phone="8509354332" onclick="callNum('8509354332')"><span class="name">Syamdas Bandyopadhyay Sir Raj College</span><span class="phone">8509354332</span></li>
+    <li tabindex="0" data-phone="9469466640" onclick="callNum('9469466640')"><span class="name">Mehboob</span><span class="phone">9469466640</span></li>
+    <li tabindex="0" data-phone="9614661646" onclick="callNum('9614661646')"><span class="name">Sangita Banerjee Beauty</span><span class="phone">9614661646</span></li>
+    <li tabindex="0" data-phone="9999551477" onclick="callNum('9999551477')"><span class="name">Nikhil Ento</span><span class="phone">9999551477</span></li>
+    <li tabindex="0" data-phone="+919382084018" onclick="callNum('+919382084018')"><span class="name">Rittika Brc</span><span class="phone">+919382084018</span></li>
+    <li tabindex="0" data-phone="+917318753852" onclick="callNum('+917318753852')"><span class="name">Mousumi Univ</span><span class="phone">+917318753852</span></li>
+    <li tabindex="0" data-phone="8731008098" onclick="callNum('8731008098')"><span class="name">Angelina Cotton University</span><span class="phone">8731008098</span></li>
+    <li tabindex="0" data-phone="+919434462950" onclick="callNum('+919434462950')"><span class="name">Maitree Ghosh</span><span class="phone">+919434462950</span></li>
+    <li tabindex="0" data-phone="+918762842989" onclick="callNum('+918762842989')"><span class="name">Amogha Bangalore Christ University</span><span class="phone">+918762842989</span></li>
+    <li tabindex="0" data-phone="+919083470854" onclick="callNum('+919083470854')"><span class="name">Chitanjit New</span><span class="phone">+919083470854</span></li>
+    <li tabindex="0" data-phone="6006695426" onclick="callNum('6006695426')"><span class="name">Driver Leh</span><span class="phone">6006695426</span></li>
+    <li tabindex="0" data-phone="+919163817322" onclick="callNum('+919163817322')"><span class="name">Debasree Chatterjee</span><span class="phone">+919163817322</span></li>
+    <li tabindex="0" data-phone="8348480891" onclick="callNum('8348480891')"><span class="name">Munmun</span><span class="phone">8348480891</span></li>
+    <li tabindex="0" data-phone="7044746200" onclick="callNum('7044746200')"><span class="name">Debasis Kaka</span><span class="phone">7044746200</span></li>
+    <li tabindex="0" data-phone="9732074933" onclick="callNum('9732074933')"><span class="name">Tapan roy</span><span class="phone">9732074933</span></li>
+    <li tabindex="0" data-phone="9046255124" onclick="callNum('9046255124')"><span class="name">Koyel Bid Asansol</span><span class="phone">9046255124</span></li>
+    <li tabindex="0" data-phone="7980174362" onclick="callNum('7980174362')"><span class="name">Panigrahi Sir</span><span class="phone">7980174362</span></li>
+    <li tabindex="0" data-phone="+919932358655" onclick="callNum('+919932358655')"><span class="name">Atanu</span><span class="phone">+919932358655</span></li>
+    <li tabindex="0" data-phone="+9779825140822" onclick="callNum('+9779825140822')"><span class="name">Sakshie Bastola</span><span class="phone">+9779825140822</span></li>
+    <li tabindex="0" data-phone="+919679146541" onclick="callNum('+919679146541')"><span class="name">Anirban Mar</span><span class="phone">+919679146541</span></li>
+    <li tabindex="0" data-phone="9051086601" onclick="callNum('9051086601')"><span class="name">Puja Maity</span><span class="phone">9051086601</span></li>
+    <li tabindex="0" data-phone="8298298334" onclick="callNum('8298298334')"><span class="name">Jitu Kumar</span><span class="phone">8298298334</span></li>
+    <li tabindex="0" data-phone="+919832242296" onclick="callNum('+919832242296')"><span class="name">Amit Dutta Da Magh Utsav</span><span class="phone">+919832242296</span></li>
+    <li tabindex="0" data-phone="+918697200200" onclick="callNum('+918697200200')"><span class="name">Gaurav</span><span class="phone">+918697200200</span></li>
+    <li tabindex="0" data-phone="9596525048" onclick="callNum('9596525048')"><span class="name">Tanvir</span><span class="phone">9596525048</span></li>
+    <li tabindex="0" data-phone="+917042114839" onclick="callNum('+917042114839')"><span class="name">Akanksha Madam</span><span class="phone">+917042114839</span></li>
+    <li tabindex="0" data-phone="+79600887514" onclick="callNum('+79600887514')"><span class="name">Ritty Ritt</span><span class="phone">+79600887514</span></li>
+    <li tabindex="0" data-phone="+919339022717" onclick="callNum('+919339022717')"><span class="name">Sarbani Kakima</span><span class="phone">+919339022717</span></li>
+    <li tabindex="0" data-phone="+919434572545" onclick="callNum('+919434572545')"><span class="name">Paresh Sir</span><span class="phone">+919434572545</span></li>
+    <li tabindex="0" data-phone="+917278467990" onclick="callNum('+917278467990')"><span class="name">Q Sayantika Nath</span><span class="phone">+917278467990</span></li>
+    <li tabindex="0" data-phone="9732064932" onclick="callNum('9732064932')"><span class="name">Padmanabha Sir WA</span><span class="phone">9732064932</span></li>
+    <li tabindex="0" data-phone="+14843192670" onclick="callNum('+14843192670')"><span class="name">Rohin</span><span class="phone">+14843192670</span></li>
+    <li tabindex="0" data-phone="9126834267" onclick="callNum('9126834267')"><span class="name">Supu</span><span class="phone">9126834267</span></li>
+    <li tabindex="0" data-phone="+919475638261" onclick="callNum('+919475638261')"><span class="name">Pushan</span><span class="phone">+919475638261</span></li>
+    <li tabindex="0" data-phone="8653365515" onclick="callNum('8653365515')"><span class="name">Urmi</span><span class="phone">8653365515</span></li>
+    <li tabindex="0" data-phone="8373823931" onclick="callNum('8373823931')"><span class="name">Prasanna Babu</span><span class="phone">8373823931</span></li>
+    <li tabindex="0" data-phone="+919810934380" onclick="callNum('+919810934380')"><span class="name">Raju Mishra</span><span class="phone">+919810934380</span></li>
+    <li tabindex="0" data-phone="+919735182857" onclick="callNum('+919735182857')"><span class="name">LG Service</span><span class="phone">+919735182857</span></li>
+    <li tabindex="0" data-phone="+919531637674" onclick="callNum('+919531637674')"><span class="name">ARUP CHAKRABORTY</span><span class="phone">+919531637674</span></li>
+    <li tabindex="0" data-phone="+917890525966" onclick="callNum('+917890525966')"><span class="name">K G Sir</span><span class="phone">+917890525966</span></li>
+    <li tabindex="0" data-phone="+919475051744" onclick="callNum('+919475051744')"><span class="name">sarodiya di</span><span class="phone">+919475051744</span></li>
+    <li tabindex="0" data-phone="+919061314516" onclick="callNum('+919061314516')"><span class="name">Kerala Volunteers</span><span class="phone">+919061314516</span></li>
+    <li tabindex="0" data-phone="+919167719898" onclick="callNum('+919167719898')"><span class="name">Ramnarayan Badrinath Sir Jyotirmoy</span><span class="phone">+919167719898</span></li>
+    <li tabindex="0" data-phone="+918945995377" onclick="callNum('+918945995377')"><span class="name">A . Samanta</span><span class="phone">+918945995377</span></li>
+    <li tabindex="0" data-phone="8617471887" onclick="callNum('8617471887')"><span class="name">Soutan Rudea</span><span class="phone">8617471887</span></li>
+    <li tabindex="0" data-phone="+918942958001" onclick="callNum('+918942958001')"><span class="name">Kausik Sanyal</span><span class="phone">+918942958001</span></li>
+    <li tabindex="0" data-phone="9635682952" onclick="callNum('9635682952')"><span class="name">Pricom</span><span class="phone">9635682952</span></li>
+    <li tabindex="0" data-phone="9851981654" onclick="callNum('9851981654')"><span class="name">Niva Mondal</span><span class="phone">9851981654</span></li>
+    <li tabindex="0" data-phone="8167014221" onclick="callNum('8167014221')"><span class="name">Anindam Pal Ganesh</span><span class="phone">8167014221</span></li>
+    <li tabindex="0" data-phone="+17816402756" onclick="callNum('+17816402756')"><span class="name">Asish jamaibabu</span><span class="phone">+17816402756</span></li>
+    <li tabindex="0" data-phone="+918942938506" onclick="callNum('+918942938506')"><span class="name">Sneha Kundu Brc Ncc</span><span class="phone">+918942938506</span></li>
+    <li tabindex="0" data-phone="+919679272902" onclick="callNum('+919679272902')"><span class="name">Shafa Bu</span><span class="phone">+919679272902</span></li>
+    <li tabindex="0" data-phone="+918927996268" onclick="callNum('+918927996268')"><span class="name">Mamon Didi</span><span class="phone">+918927996268</span></li>
+    <li tabindex="0" data-phone="7059955537" onclick="callNum('7059955537')"><span class="name">Monika, Balurghat</span><span class="phone">7059955537</span></li>
+    <li tabindex="0" data-phone="+918918066561" onclick="callNum('+918918066561')"><span class="name">Mejopcmoni</span><span class="phone">+918918066561</span></li>
+    <li tabindex="0" data-phone="+918893910466" onclick="callNum('+918893910466')"><span class="name">Thulasi Amminikkutty</span><span class="phone">+918893910466</span></li>
+    <li tabindex="0" data-phone="9749926216" onclick="callNum('9749926216')"><span class="name">Idk Colg</span><span class="phone">9749926216</span></li>
+    <li tabindex="0" data-phone="9830145545" onclick="callNum('9830145545')"><span class="name">soma madam (college)</span><span class="phone">9830145545</span></li>
+    <li tabindex="0" data-phone="+917478175033" onclick="callNum('+917478175033')"><span class="name">SarmisthaDiSmart</span><span class="phone">+917478175033</span></li>
+    <li tabindex="0" data-phone="7001320797" onclick="callNum('7001320797')"><span class="name">Bubun</span><span class="phone">7001320797</span></li>
+    <li tabindex="0" data-phone="+918744005910" onclick="callNum('+918744005910')"><span class="name">Prity Giri</span><span class="phone">+918744005910</span></li>
+    <li tabindex="0" data-phone="+919434215309" onclick="callNum('+919434215309')"><span class="name">Indra Sir Hargobind</span><span class="phone">+919434215309</span></li>
+    <li tabindex="0" data-phone="9999888931" onclick="callNum('9999888931')"><span class="name">Entomology Journal</span><span class="phone">9999888931</span></li>
+    <li tabindex="0" data-phone="+917063605220" onclick="callNum('+917063605220')"><span class="name">Chandrachur Banerjee</span><span class="phone">+917063605220</span></li>
+    <li tabindex="0" data-phone="8927430174" onclick="callNum('8927430174')"><span class="name">Sayantani Dutta</span><span class="phone">8927430174</span></li>
+    <li tabindex="0" data-phone="7001405819" onclick="callNum('7001405819')"><span class="name">Guddu Da</span><span class="phone">7001405819</span></li>
+    <li tabindex="0" data-phone="7365988620" onclick="callNum('7365988620')"><span class="name">Mamima</span><span class="phone">7365988620</span></li>
+    <li tabindex="0" data-phone="+918906732726" onclick="callNum('+918906732726')"><span class="name">Subham w</span><span class="phone">+918906732726</span></li>
+    <li tabindex="0" data-phone="+918943672504" onclick="callNum('+918943672504')"><span class="name">Sajithaprakash</span><span class="phone">+918943672504</span></li>
+    <li tabindex="0" data-phone="8167424790" onclick="callNum('8167424790')"><span class="name">Jothirmoy Pakre Asansol</span><span class="phone">8167424790</span></li>
+    <li tabindex="0" data-phone="+919647570010" onclick="callNum('+919647570010')"><span class="name">DM Sir NEW</span><span class="phone">+919647570010</span></li>
+    <li tabindex="0" data-phone="+917001965561" onclick="callNum('+917001965561')"><span class="name">Arnab Dutta Rajsekhar Singer</span><span class="phone">+917001965561</span></li>
+    <li tabindex="0" data-phone="9735980002" onclick="callNum('9735980002')"><span class="name">Mri</span><span class="phone">9735980002</span></li>
+    <li tabindex="0" data-phone="9641236045" onclick="callNum('9641236045')"><span class="name">Chandan da (nSOU)</span><span class="phone">9641236045</span></li>
+    <li tabindex="0" data-phone="8420561074" onclick="callNum('8420561074')"><span class="name">Oindrilla Maity</span><span class="phone">8420561074</span></li>
+    <li tabindex="0" data-phone="+917797709977" onclick="callNum('+917797709977')"><span class="name">Rohit Bhaskar</span><span class="phone">+917797709977</span></li>
+    <li tabindex="0" data-phone="09818001111" onclick="callNum('09818001111')"><span class="name">Dr moloy Chowdhury</span><span class="phone">09818001111</span></li>
+    <li tabindex="0" data-phone="9614813868" onclick="callNum('9614813868')"><span class="name">Drm Suprabhat Mukherjee</span><span class="phone">9614813868</span></li>
+    <li tabindex="0" data-phone="8637363743" onclick="callNum('8637363743')"><span class="name">GC Sir New Wp</span><span class="phone">8637363743</span></li>
+    <li tabindex="0" data-phone="+918972716471" onclick="callNum('+918972716471')"><span class="name">Puspita</span><span class="phone">+918972716471</span></li>
+    <li tabindex="0" data-phone="+919681887745" onclick="callNum('+919681887745')"><span class="name">Q Sruti</span><span class="phone">+919681887745</span></li>
+    <li tabindex="0" data-phone="8420062960" onclick="callNum('8420062960')"><span class="name">Sourav Alliance</span><span class="phone">8420062960</span></li>
+    <li tabindex="0" data-phone="9434724768" onclick="callNum('9434724768')"><span class="name">Manas Sir Asansol</span><span class="phone">9434724768</span></li>
+    <li tabindex="0" data-phone="+919064136568" onclick="callNum('+919064136568')"><span class="name">Souvik Ronnie Jio</span><span class="phone">+919064136568</span></li>
+    <li tabindex="0" data-phone="+918972000279" onclick="callNum('+918972000279')"><span class="name">Rupsana smart</span><span class="phone">+918972000279</span></li>
+    <li tabindex="0" data-phone="+919832952216" onclick="callNum('+919832952216')"><span class="name">Rubu</span><span class="phone">+919832952216</span></li>
+    <li tabindex="0" data-phone="09412327702" onclick="callNum('09412327702')"><span class="name">Dr ATUL JOSHI KUMAYUN UNIVERSITY</span><span class="phone">09412327702</span></li>
+    <li tabindex="0" data-phone="+642102431280" onclick="callNum('+642102431280')"><span class="name">Dr. Samik Dutta</span><span class="phone">+642102431280</span></li>
+    <li tabindex="0" data-phone="7699345871" onclick="callNum('7699345871')"><span class="name">Sharmishtha Medda</span><span class="phone">7699345871</span></li>
+    <li tabindex="0" data-phone="9434198892" onclick="callNum('9434198892')"><span class="name">Dr subrata raha</span><span class="phone">9434198892</span></li>
+    <li tabindex="0" data-phone="+917908630821" onclick="callNum('+917908630821')"><span class="name">Ma Jio</span><span class="phone">+917908630821</span></li>
+    <li tabindex="0" data-phone="8420734387" onclick="callNum('8420734387')"><span class="name">Seija</span><span class="phone">8420734387</span></li>
+    <li tabindex="0" data-phone="+14054819888" onclick="callNum('+14054819888')"><span class="name">Rayven Okl</span><span class="phone">+14054819888</span></li>
+    <li tabindex="0" data-phone="+918918344729" onclick="callNum('+918918344729')"><span class="name">Nilanjan Das Bu</span><span class="phone">+918918344729</span></li>
+    <li tabindex="0" data-phone="+919093097889" onclick="callNum('+919093097889')"><span class="name">Sweety</span><span class="phone">+919093097889</span></li>
+    <li tabindex="0" data-phone="8961443510" onclick="callNum('8961443510')"><span class="name">Neyogi Bu</span><span class="phone">8961443510</span></li>
+    <li tabindex="0" data-phone="+918327215491" onclick="callNum('+918327215491')"><span class="name">Souvik Pan</span><span class="phone">+918327215491</span></li>
+    <li tabindex="0" data-phone="+919874192102" onclick="callNum('+919874192102')"><span class="name">Pinaki P Singha</span><span class="phone">+919874192102</span></li>
+    <li tabindex="0" data-phone="+919609928282" onclick="callNum('+919609928282')"><span class="name">Manojit</span><span class="phone">+919609928282</span></li>
+    <li tabindex="0" data-phone="+918391009304" onclick="callNum('+918391009304')"><span class="name">Ahana Mazumdar</span><span class="phone">+918391009304</span></li>
+    <li tabindex="0" data-phone="+918370800001" onclick="callNum('+918370800001')"><span class="name">Sp Kunal Sir</span><span class="phone">+918370800001</span></li>
+    <li tabindex="0" data-phone="+919002164312" onclick="callNum('+919002164312')"><span class="name">Madhavi Marjit</span><span class="phone">+919002164312</span></li>
+    <li tabindex="0" data-phone="+91009474779844" onclick="callNum('+91009474779844')"><span class="name">Jonok</span><span class="phone">+91009474779844</span></li>
+    <li tabindex="0" data-phone="+919495161601" onclick="callNum('+919495161601')"><span class="name">Pi Sir</span><span class="phone">+919495161601</span></li>
+    <li tabindex="0" data-phone="+91007006773316" onclick="callNum('+91007006773316')"><span class="name">Mohd Issa</span><span class="phone">+91007006773316</span></li>
+    <li tabindex="0" data-phone="+917908417561" onclick="callNum('+917908417561')"><span class="name">Barsha Sarkar</span><span class="phone">+917908417561</span></li>
+    <li tabindex="0" data-phone="+918013406708" onclick="callNum('+918013406708')"><span class="name">Gurudhan Hrs</span><span class="phone">+918013406708</span></li>
+    <li tabindex="0" data-phone="+919831050785" onclick="callNum('+919831050785')"><span class="name">Wipro Sir</span><span class="phone">+919831050785</span></li>
+    <li tabindex="0" data-phone="+919732865666" onclick="callNum('+919732865666')"><span class="name">Rumpa</span><span class="phone">+919732865666</span></li>
+    <li tabindex="0" data-phone="+919830688316" onclick="callNum('+919830688316')"><span class="name">Zaheer Da</span><span class="phone">+919830688316</span></li>
+    <li tabindex="0" data-phone="7001987409" onclick="callNum('7001987409')"><span class="name">Shweta Dey NSOU</span><span class="phone">7001987409</span></li>
+    <li tabindex="0" data-phone="+919609647143" onclick="callNum('+919609647143')"><span class="name">Rakesh Hati</span><span class="phone">+919609647143</span></li>
+    <li tabindex="0" data-phone="+919531781410" onclick="callNum('+919531781410')"><span class="name">Arpita di</span><span class="phone">+919531781410</span></li>
+    <li tabindex="0" data-phone="+919474367677" onclick="callNum('+919474367677')"><span class="name">Kapil da Kdm</span><span class="phone">+919474367677</span></li>
+    <li tabindex="0" data-phone="+917797499759" onclick="callNum('+917797499759')"><span class="name">Satyajeet</span><span class="phone">+917797499759</span></li>
+    <li tabindex="0" data-phone="+919903404799" onclick="callNum('+919903404799')"><span class="name">Q Rajarshi</span><span class="phone">+919903404799</span></li>
+    <li tabindex="0" data-phone="+918538879885" onclick="callNum('+918538879885')"><span class="name">Souvik Ronnie</span><span class="phone">+918538879885</span></li>
+    <li tabindex="0" data-phone="+918250458346" onclick="callNum('+918250458346')"><span class="name">Shubhankar Animal Science Dept Asansol</span><span class="phone">+918250458346</span></li>
+    <li tabindex="0" data-phone="+916296151703" onclick="callNum('+916296151703')"><span class="name">Shubhrajyoti Chattoraj</span><span class="phone">+916296151703</span></li>
+    <li tabindex="0" data-phone="+918670438192" onclick="callNum('+918670438192')"><span class="name">Soumalya da</span><span class="phone">+918670438192</span></li>
+    <li tabindex="0" data-phone="+917477417791" onclick="callNum('+917477417791')"><span class="name">Sayani roy</span><span class="phone">+917477417791</span></li>
+    <li tabindex="0" data-phone="8250053841" onclick="callNum('8250053841')"><span class="name">Pradip Asst Controller</span><span class="phone">8250053841</span></li>
+    <li tabindex="0" data-phone="+918670775400" onclick="callNum('+918670775400')"><span class="name">Souvik bhai DM</span><span class="phone">+918670775400</span></li>
+    <li tabindex="0" data-phone="+919434667303" onclick="callNum('+919434667303')"><span class="name">Ma</span><span class="phone">+919434667303</span></li>
+    <li tabindex="0" data-phone="+919932013163" onclick="callNum('+919932013163')"><span class="name">Parash Hrs</span><span class="phone">+919932013163</span></li>
+    <li tabindex="0" data-phone="+918250046890" onclick="callNum('+918250046890')"><span class="name">Mompi Indrani</span><span class="phone">+918250046890</span></li>
+    <li tabindex="0" data-phone="+918116589863" onclick="callNum('+918116589863')"><span class="name">Job Hunt Agency Teaching</span><span class="phone">+918116589863</span></li>
+    <li tabindex="0" data-phone="+918617035048" onclick="callNum('+918617035048')"><span class="name">Summit Biswas PhD Dept BU</span><span class="phone">+918617035048</span></li>
+    <li tabindex="0" data-phone="+919735126714" onclick="callNum('+919735126714')"><span class="name">Sourav Nandi Asansol</span><span class="phone">+919735126714</span></li>
+    <li tabindex="0" data-phone="+918900651423" onclick="callNum('+918900651423')"><span class="name">Swatilelha</span><span class="phone">+918900651423</span></li>
+    <li tabindex="0" data-phone="+919641631555" onclick="callNum('+919641631555')"><span class="name">Puvhu Bu</span><span class="phone">+919641631555</span></li>
+    <li tabindex="0" data-phone="+919564631590" onclick="callNum('+919564631590')"><span class="name">Dibya</span><span class="phone">+919564631590</span></li>
+    <li tabindex="0" data-phone="+919733057060" onclick="callNum('+919733057060')"><span class="name">Azharuddin</span><span class="phone">+919733057060</span></li>
+    <li tabindex="0" data-phone="+918759151544" onclick="callNum('+918759151544')"><span class="name">Yashbant Konar</span><span class="phone">+918759151544</span></li>
+    <li tabindex="0" data-phone="+917797680323" onclick="callNum('+917797680323')"><span class="name">Ma Vodafonr</span><span class="phone">+917797680323</span></li>
+    <li tabindex="0" data-phone="+919674922717" onclick="callNum('+919674922717')"><span class="name">Paramesesh</span><span class="phone">+919674922717</span></li>
+    <li tabindex="0" data-phone="9434788139" onclick="callNum('9434788139')"><span class="name">Sudip Sir</span><span class="phone">9434788139</span></li>
+    <li tabindex="0" data-phone="+919732160904" onclick="callNum('+919732160904')"><span class="name">Ashok Da</span><span class="phone">+919732160904</span></li>
+    <li tabindex="0" data-phone="9474409796" onclick="callNum('9474409796')"><span class="name">R</span><span class="phone">9474409796</span></li>
+    <li tabindex="0" data-phone="6290833139" onclick="callNum('6290833139')"><span class="name">Tuhina Goswami</span><span class="phone">6290833139</span></li>
+    <li tabindex="0" data-phone="8768203323" onclick="callNum('8768203323')"><span class="name">Sona Fish</span><span class="phone">8768203323</span></li>
+    <li tabindex="0" data-phone="+918906841974" onclick="callNum('+918906841974')"><span class="name">Univ New Girl</span><span class="phone">+918906841974</span></li>
+    <li tabindex="0" data-phone="+916297699652" onclick="callNum('+916297699652')"><span class="name">Joyontomama</span><span class="phone">+916297699652</span></li>
+    <li tabindex="0" data-phone="+918886942828" onclick="callNum('+918886942828')"><span class="name">Souvik Kolsi Hrs</span><span class="phone">+918886942828</span></li>
+    <li tabindex="0" data-phone="9451339078" onclick="callNum('9451339078')"><span class="name">Dr. Om shankar Dubey</span><span class="phone">9451339078</span></li>
+    <li tabindex="0" data-phone="+918707431459" onclick="callNum('+918707431459')"><span class="name">Dr. Sourabh Sulabh Asansol Knu</span><span class="phone">+918707431459</span></li>
+    <li tabindex="0" data-phone="+9710566395780" onclick="callNum('+9710566395780')"><span class="name">Rabi Sir</span><span class="phone">+9710566395780</span></li>
+    <li tabindex="0" data-phone="+919832236657" onclick="callNum('+919832236657')"><span class="name">Principal Ramkrishn Sir</span><span class="phone">+919832236657</span></li>
+    <li tabindex="0" data-phone="+919475050403" onclick="callNum('+919475050403')"><span class="name">Chandan Babu</span><span class="phone">+919475050403</span></li>
+    <li tabindex="0" data-phone="9932336572" onclick="callNum('9932336572')"><span class="name">Librarian Sir</span><span class="phone">9932336572</span></li>
+    <li tabindex="0" data-phone="+917908472725" onclick="callNum('+917908472725')"><span class="name">Chitralekha</span><span class="phone">+917908472725</span></li>
+    <li tabindex="0" data-phone="+918159990110" onclick="callNum('+918159990110')"><span class="name">Ananya Chatterjee</span><span class="phone">+918159990110</span></li>
+    <li tabindex="0" data-phone="+917387908490" onclick="callNum('+917387908490')"><span class="name">Suraj Kumthekar</span><span class="phone">+917387908490</span></li>
+    <li tabindex="0" data-phone="+917478344100" onclick="callNum('+917478344100')"><span class="name">Deblina Nag</span><span class="phone">+917478344100</span></li>
+    <li tabindex="0" data-phone="9433303480" onclick="callNum('9433303480')"><span class="name">Anirban Ash</span><span class="phone">9433303480</span></li>
+    <li tabindex="0" data-phone="+919002013962" onclick="callNum('+919002013962')"><span class="name">Topper Krishnendu</span><span class="phone">+919002013962</span></li>
+    <li tabindex="0" data-phone="8158993268" onclick="callNum('8158993268')"><span class="name">Flipkart</span><span class="phone">8158993268</span></li>
+    <li tabindex="0" data-phone="8697527939" onclick="callNum('8697527939')"><span class="name">Nanda Bandopadhyay</span><span class="phone">8697527939</span></li>
+    <li tabindex="0" data-phone="9734259668" onclick="callNum('9734259668')"><span class="name">Manna Refrigeration</span><span class="phone">9734259668</span></li>
+    <li tabindex="0" data-phone="7407640083" onclick="callNum('7407640083')"><span class="name">Prosenjit</span><span class="phone">7407640083</span></li>
+    <li tabindex="0" data-phone="9475123934" onclick="callNum('9475123934')"><span class="name">Tridip Babu</span><span class="phone">9475123934</span></li>
+    <li tabindex="0" data-phone="+919475637117" onclick="callNum('+919475637117')"><span class="name">Pradipta Da</span><span class="phone">+919475637117</span></li>
+    <li tabindex="0" data-phone="+919647149717" onclick="callNum('+919647149717')"><span class="name">Moon</span><span class="phone">+919647149717</span></li>
+    <li tabindex="0" data-phone="7076762951" onclick="callNum('7076762951')"><span class="name">Farha Yasmin</span><span class="phone">7076762951</span></li>
+    <li tabindex="0" data-phone="+918514082981" onclick="callNum('+918514082981')"><span class="name">subhasis da</span><span class="phone">+918514082981</span></li>
+    <li tabindex="0" data-phone="+919800185443" onclick="callNum('+919800185443')"><span class="name">Joyonto Mama</span><span class="phone">+919800185443</span></li>
+    <li tabindex="0" data-phone="+919088899988" onclick="callNum('+919088899988')"><span class="name">Rajesh Sir</span><span class="phone">+919088899988</span></li>
+    <li tabindex="0" data-phone="9051342474" onclick="callNum('9051342474')"><span class="name">VC Sir</span><span class="phone">9051342474</span></li>
+    <li tabindex="0" data-phone="+917908104742" onclick="callNum('+917908104742')"><span class="name">Ankita Asansol</span><span class="phone">+917908104742</span></li>
+    <li tabindex="0" data-phone="9679155687" onclick="callNum('9679155687')"><span class="name">Sanju Da Muchipara Xerox</span><span class="phone">9679155687</span></li>
+    <li tabindex="0" data-phone="6295157219" onclick="callNum('6295157219')"><span class="name">Ayan Da</span><span class="phone">6295157219</span></li>
+    <li tabindex="0" data-phone="+916297282881" onclick="callNum('+916297282881')"><span class="name">Yashbant Konarrr</span><span class="phone">+916297282881</span></li>
+    <li tabindex="0" data-phone="7906220339" onclick="callNum('7906220339')"><span class="name">Zsi Call</span><span class="phone">7906220339</span></li>
+    <li tabindex="0" data-phone="8584025244" onclick="callNum('8584025244')"><span class="name">Surya Jamaibabu</span><span class="phone">8584025244</span></li>
+    <li tabindex="0" data-phone="+919564540150" onclick="callNum('+919564540150')"><span class="name">Sumanta Da</span><span class="phone">+919564540150</span></li>
+    <li tabindex="0" data-phone="+919614690656" onclick="callNum('+919614690656')"><span class="name">Arpita Di</span><span class="phone">+919614690656</span></li>
+    <li tabindex="0" data-phone="+919932240164" onclick="callNum('+919932240164')"><span class="name">Rajkumar</span><span class="phone">+919932240164</span></li>
+    <li tabindex="0" data-phone="+919593636729" onclick="callNum('+919593636729')"><span class="name">Nilanjana</span><span class="phone">+919593636729</span></li>
+    <li tabindex="0" data-phone="9434391456" onclick="callNum('9434391456')"><span class="name">Debidas Mondol</span><span class="phone">9434391456</span></li>
+    <li tabindex="0" data-phone="+919093266929" onclick="callNum('+919093266929')"><span class="name">Souvik A Section Hrs</span><span class="phone">+919093266929</span></li>
+    <li tabindex="0" data-phone="+916294189537" onclick="callNum('+916294189537')"><span class="name">Rajsekhar</span><span class="phone">+916294189537</span></li>
+    <li tabindex="0" data-phone="9474484735" onclick="callNum('9474484735')"><span class="name">Pahari Sir</span><span class="phone">9474484735</span></li>
+    <li tabindex="0" data-phone="+917863931650" onclick="callNum('+917863931650')"><span class="name">Sangita Bhowmick</span><span class="phone">+917863931650</span></li>
+    <li tabindex="0" data-phone="+917679410446" onclick="callNum('+917679410446')"><span class="name">Car Driver</span><span class="phone">+917679410446</span></li>
+    <li tabindex="0" data-phone="+918372856338" onclick="callNum('+918372856338')"><span class="name">Shounak Das</span><span class="phone">+918372856338</span></li>
+    <li tabindex="0" data-phone="+918967494799" onclick="callNum('+918967494799')"><span class="name">Trisha</span><span class="phone">+918967494799</span></li>
+    <li tabindex="0" data-phone="+919433621872" onclick="callNum('+919433621872')"><span class="name">Chittababu</span><span class="phone">+919433621872</span></li>
+    <li tabindex="0" data-phone="8945039497" onclick="callNum('8945039497')"><span class="name">Anup Pine</span><span class="phone">8945039497</span></li>
+    <li tabindex="0" data-phone="9064638344" onclick="callNum('9064638344')"><span class="name">Arabinda Mondol</span><span class="phone">9064638344</span></li>
+    <li tabindex="0" data-phone="+919800525437" onclick="callNum('+919800525437')"><span class="name">Rishi Nephew</span><span class="phone">+919800525437</span></li>
+    <li tabindex="0" data-phone="9153367464" onclick="callNum('9153367464')"><span class="name">Bamda</span><span class="phone">9153367464</span></li>
+    <li tabindex="0" data-phone="+918346057368" onclick="callNum('+918346057368')"><span class="name">Kalpita</span><span class="phone">+918346057368</span></li>
+    <li tabindex="0" data-phone="9475187064" onclick="callNum('9475187064')"><span class="name">Maitri Brc Raj College</span><span class="phone">9475187064</span></li>
+    <li tabindex="0" data-phone="8371878211" onclick="callNum('8371878211')"><span class="name">Xerooo</span><span class="phone">8371878211</span></li>
+    <li tabindex="0" data-phone="+917583930822" onclick="callNum('+917583930822')"><span class="name">Parna Ganguly</span><span class="phone">+917583930822</span></li>
+    <li tabindex="0" data-phone="9933156782" onclick="callNum('9933156782')"><span class="name">Rahul Jash</span><span class="phone">9933156782</span></li>
+    <li tabindex="0" data-phone="8906305439" onclick="callNum('8906305439')"><span class="name">Chandan JHA</span><span class="phone">8906305439</span></li>
+    <li tabindex="0" data-phone="+918961252476" onclick="callNum('+918961252476')"><span class="name">Q Admin 1</span><span class="phone">+918961252476</span></li>
+    <li tabindex="0" data-phone="9474921304" onclick="callNum('9474921304')"><span class="name">Srijata Madam</span><span class="phone">9474921304</span></li>
+    <li tabindex="0" data-phone="+919735864373" onclick="callNum('+919735864373')"><span class="name">Rupal Hrs</span><span class="phone">+919735864373</span></li>
+    <li tabindex="0" data-phone="+917908809553" onclick="callNum('+917908809553')"><span class="name">Jagatpati Sir</span><span class="phone">+917908809553</span></li>
+    <li tabindex="0" data-phone="9681401563" onclick="callNum('9681401563')"><span class="name">Supra Stores Water</span><span class="phone">9681401563</span></li>
+    <li tabindex="0" data-phone="+919932380960" onclick="callNum('+919932380960')"><span class="name">Srikanta Nabagram</span><span class="phone">+919932380960</span></li>
+    <li tabindex="0" data-phone="9563529012" onclick="callNum('9563529012')"><span class="name">Soumen Sir Choto</span><span class="phone">9563529012</span></li>
+    <li tabindex="0" data-phone="8389951029" onclick="callNum('8389951029')"><span class="name">Mesomosai</span><span class="phone">8389951029</span></li>
+    <li tabindex="0" data-phone="+919474780619" onclick="callNum('+919474780619')"><span class="name">Soumen Sir Zoology</span><span class="phone">+919474780619</span></li>
+    <li tabindex="0" data-phone="+916294470105" onclick="callNum('+916294470105')"><span class="name">Asifa law Officer Holy Rock School</span><span class="phone">+916294470105</span></li>
+    <li tabindex="0" data-phone="+916294388404" onclick="callNum('+916294388404')"><span class="name">Piya Mehta</span><span class="phone">+916294388404</span></li>
+    <li tabindex="0" data-phone="9810484797" onclick="callNum('9810484797')"><span class="name">Delhi Botany Sir</span><span class="phone">9810484797</span></li>
+    <li tabindex="0" data-phone="9475884196" onclick="callNum('9475884196')"><span class="name">Shounak roga</span><span class="phone">9475884196</span></li>
+    <li tabindex="0" data-phone="+919002072567" onclick="callNum('+919002072567')"><span class="name">Surjoda</span><span class="phone">+919002072567</span></li>
+    <li tabindex="0" data-phone="9734030586" onclick="callNum('9734030586')"><span class="name">Bolorum Da</span><span class="phone">9734030586</span></li>
+    <li tabindex="0" data-phone="9477358314" onclick="callNum('9477358314')"><span class="name">Nbu</span><span class="phone">9477358314</span></li>
+    <li tabindex="0" data-phone="+918944041950" onclick="callNum('+918944041950')"><span class="name">Pradip Mitra EVs BU</span><span class="phone">+918944041950</span></li>
+    <li tabindex="0" data-phone="8334900993" onclick="callNum('8334900993')"><span class="name">Narayan da Doctor</span><span class="phone">8334900993</span></li>
+    <li tabindex="0" data-phone="+919430252492" onclick="callNum('+919430252492')"><span class="name">Dr. Ramakant Pandey</span><span class="phone">+919430252492</span></li>
+    <li tabindex="0" data-phone="+918910506379" onclick="callNum('+918910506379')"><span class="name">Anirban Ash Sir</span><span class="phone">+918910506379</span></li>
+    <li tabindex="0" data-phone="+917679334610" onclick="callNum('+917679334610')"><span class="name">Rajni</span><span class="phone">+917679334610</span></li>
+    <li tabindex="0" data-phone="+919735099643" onclick="callNum('+919735099643')"><span class="name">Sreya Bu</span><span class="phone">+919735099643</span></li>
+    <li tabindex="0" data-phone="+916291490067" onclick="callNum('+916291490067')"><span class="name">Banya De</span><span class="phone">+916291490067</span></li>
+    <li tabindex="0" data-phone="8017654653" onclick="callNum('8017654653')"><span class="name">Abhiroop</span><span class="phone">8017654653</span></li>
+    <li tabindex="0" data-phone="+919475124675" onclick="callNum('+919475124675')"><span class="name">Aurodeep hrs</span><span class="phone">+919475124675</span></li>
+    <li tabindex="0" data-phone="+64272926787" onclick="callNum('+64272926787')"><span class="name">Dr. Dilip Das</span><span class="phone">+64272926787</span></li>
+    <li tabindex="0" data-phone="8537827788" onclick="callNum('8537827788')"><span class="name">Jeet</span><span class="phone">8537827788</span></li>
+    <li tabindex="0" data-phone="9832876826" onclick="callNum('9832876826')"><span class="name">Kaushik Computer</span><span class="phone">9832876826</span></li>
+    <li tabindex="0" data-phone="+919609246992" onclick="callNum('+919609246992')"><span class="name">Dr. Surat Sheikh. Economice</span><span class="phone">+919609246992</span></li>
+    <li tabindex="0" data-phone="+917797815506" onclick="callNum('+917797815506')"><span class="name">Sanchita hRS</span><span class="phone">+917797815506</span></li>
+    <li tabindex="0" data-phone="9755976767" onclick="callNum('9755976767')"><span class="name">Deepak Driver</span><span class="phone">9755976767</span></li>
+    <li tabindex="0" data-phone="9635193003" onclick="callNum('9635193003')"><span class="name">Adrija  Banerjee</span><span class="phone">9635193003</span></li>
+    <li tabindex="0" data-phone="+917003507627" onclick="callNum('+917003507627')"><span class="name">Nunam</span><span class="phone">+917003507627</span></li>
+    <li tabindex="0" data-phone="+917044304663" onclick="callNum('+917044304663')"><span class="name">Pink Floyd RI</span><span class="phone">+917044304663</span></li>
+    <li tabindex="0" data-phone="9434547165" onclick="callNum('9434547165')"><span class="name">Surajit Sir</span><span class="phone">9434547165</span></li>
+    <li tabindex="0" data-phone="+917980212897" onclick="callNum('+917980212897')"><span class="name">SP Mam</span><span class="phone">+917980212897</span></li>
+    <li tabindex="0" data-phone="+919831066186" onclick="callNum('+919831066186')"><span class="name">S P Ma'm</span><span class="phone">+919831066186</span></li>
+    <li tabindex="0" data-phone="+92683539421" onclick="callNum('+92683539421')"><span class="name">Althina L'crossiont</span><span class="phone">+92683539421</span></li>
+    <li tabindex="0" data-phone="+917980435688" onclick="callNum('+917980435688')"><span class="name">Sourav Debnath ASANSOL</span><span class="phone">+917980435688</span></li>
+    <li tabindex="0" data-phone="+918637385177" onclick="callNum('+918637385177')"><span class="name">Shampa Bag</span><span class="phone">+918637385177</span></li>
+    <li tabindex="0" data-phone="+919476100637" onclick="callNum('+919476100637')"><span class="name">Dev Sadhu</span><span class="phone">+919476100637</span></li>
+    <li tabindex="0" data-phone="+919476106919" onclick="callNum('+919476106919')"><span class="name">Chandrima junior</span><span class="phone">+919476106919</span></li>
+    <li tabindex="0" data-phone="9749733587" onclick="callNum('9749733587')"><span class="name">Nil</span><span class="phone">9749733587</span></li>
+    <li tabindex="0" data-phone="+917479201789" onclick="callNum('+917479201789')"><span class="name">Ankita Suprabhat Sir Lab</span><span class="phone">+917479201789</span></li>
+    <li tabindex="0" data-phone="+919434835334" onclick="callNum('+919434835334')"><span class="name">Bijoy Smart</span><span class="phone">+919434835334</span></li>
+    <li tabindex="0" data-phone="+918697111626" onclick="callNum('+918697111626')"><span class="name">Y Ravhubangshi</span><span class="phone">+918697111626</span></li>
+    <li tabindex="0" data-phone="8372953756" onclick="callNum('8372953756')"><span class="name">Achintamama</span><span class="phone">8372953756</span></li>
+    <li tabindex="0" data-phone="+918101630920" onclick="callNum('+918101630920')"><span class="name">Diya Banerjee</span><span class="phone">+918101630920</span></li>
+    <li tabindex="0" data-phone="+919800681294" onclick="callNum('+919800681294')"><span class="name">Souvik Adhikari New</span><span class="phone">+919800681294</span></li>
+    <li tabindex="0" data-phone="9734259381" onclick="callNum('9734259381')"><span class="name">Buddhadve Sir</span><span class="phone">9734259381</span></li>
+    <li tabindex="0" data-phone="9007820316" onclick="callNum('9007820316')"><span class="name">Guide Camera</span><span class="phone">9007820316</span></li>
+    <li tabindex="0" data-phone="+917584854122" onclick="callNum('+917584854122')"><span class="name">Abhijit SARKAR Sanskrit</span><span class="phone">+917584854122</span></li>
+    <li tabindex="0" data-phone="+919088997861" onclick="callNum('+919088997861')"><span class="name">Q admin 2</span><span class="phone">+919088997861</span></li>
+    <li tabindex="0" data-phone="+919883850654" onclick="callNum('+919883850654')"><span class="name">Chinmoy Roy</span><span class="phone">+919883850654</span></li>
+    <li tabindex="0" data-phone="+918447405628" onclick="callNum('+918447405628')"><span class="name">Dasgupta Sir</span><span class="phone">+918447405628</span></li>
+    <li tabindex="0" data-phone="7908843394" onclick="callNum('7908843394')"><span class="name">Rupa Di Chotobelun</span><span class="phone">7908843394</span></li>
+    <li tabindex="0" data-phone="+917384569995" onclick="callNum('+917384569995')"><span class="name">Mousumidi</span><span class="phone">+917384569995</span></li>
+    <li tabindex="0" data-phone="+918768750711" onclick="callNum('+918768750711')"><span class="name">Rupee Pandey</span><span class="phone">+918768750711</span></li>
+    <li tabindex="0" data-phone="+917602509236" onclick="callNum('+917602509236')"><span class="name">Golam</span><span class="phone">+917602509236</span></li>
+    <li tabindex="0" data-phone="9474594363" onclick="callNum('9474594363')"><span class="name">Abhisek Bu Scholarship</span><span class="phone">9474594363</span></li>
+    <li tabindex="0" data-phone="9647735800" onclick="callNum('9647735800')"><span class="name">Haribansha</span><span class="phone">9647735800</span></li>
+    <li tabindex="0" data-phone="7384246195" onclick="callNum('7384246195')"><span class="name">Debkumar Da</span><span class="phone">7384246195</span></li>
+    <li tabindex="0" data-phone="+91008637525761" onclick="callNum('+91008637525761')"><span class="name">Poulomi Roy</span><span class="phone">+91008637525761</span></li>
+    <li tabindex="0" data-phone="+918481830689" onclick="callNum('+918481830689')"><span class="name">Samapti</span><span class="phone">+918481830689</span></li>
+    <li tabindex="0" data-phone="9434466853" onclick="callNum('9434466853')"><span class="name">Aaaaa</span><span class="phone">9434466853</span></li>
+    <li tabindex="0" data-phone="8101004370" onclick="callNum('8101004370')"><span class="name">Pranoy</span><span class="phone">8101004370</span></li>
+    <li tabindex="0" data-phone="9681448918" onclick="callNum('9681448918')"><span class="name">Arunima Bu</span><span class="phone">9681448918</span></li>
+    <li tabindex="0" data-phone="+917908653197" onclick="callNum('+917908653197')"><span class="name">Bisnu Jio</span><span class="phone">+917908653197</span></li>
+    <li tabindex="0" data-phone="+918792341624" onclick="callNum('+918792341624')"><span class="name">Q Pratiti Guha</span><span class="phone">+918792341624</span></li>
+    <li tabindex="0" data-phone="+919647576904" onclick="callNum('+919647576904')"><span class="name">Anirban Ghosh</span><span class="phone">+919647576904</span></li>
+    <li tabindex="0" data-phone="+918584000818" onclick="callNum('+918584000818')"><span class="name">PK Ray</span><span class="phone">+918584000818</span></li>
+    <li tabindex="0" data-phone="9434834258" onclick="callNum('9434834258')"><span class="name">Abhijit sir</span><span class="phone">9434834258</span></li>
+    <li tabindex="0" data-phone="+917718625050" onclick="callNum('+917718625050')"><span class="name">Geeta Mal</span><span class="phone">+917718625050</span></li>
+    <li tabindex="0" data-phone="+919434100209" onclick="callNum('+919434100209')"><span class="name">Chandrima Mondal</span><span class="phone">+919434100209</span></li>
+    <li tabindex="0" data-phone="+917908308197" onclick="callNum('+917908308197')"><span class="name">Q Abhigyan Chakraborty</span><span class="phone">+917908308197</span></li>
+    <li tabindex="0" data-phone="+919433010986" onclick="callNum('+919433010986')"><span class="name">Prof Mrinal Basu ICAR</span><span class="phone">+919433010986</span></li>
+    <li tabindex="0" data-phone="9475800845" onclick="callNum('9475800845')"><span class="name">Gauri Kalu</span><span class="phone">9475800845</span></li>
+    <li tabindex="0" data-phone="+919436280230" onclick="callNum('+919436280230')"><span class="name">Asamanja Chattoraj Asansol</span><span class="phone">+919436280230</span></li>
+    <li tabindex="0" data-phone="+918170856348" onclick="callNum('+918170856348')"><span class="name">Bhanu Nabagram Mobile</span><span class="phone">+918170856348</span></li>
+    <li tabindex="0" data-phone="+919875657589" onclick="callNum('+919875657589')"><span class="name">Chotopisi</span><span class="phone">+919875657589</span></li>
+    <li tabindex="0" data-phone="+918436742768" onclick="callNum('+918436742768')"><span class="name">Amena</span><span class="phone">+918436742768</span></li>
+    <li tabindex="0" data-phone="+919609187184" onclick="callNum('+919609187184')"><span class="name">Satya Pharmacy</span><span class="phone">+919609187184</span></li>
+    <li tabindex="0" data-phone="+919339674853" onclick="callNum('+919339674853')"><span class="name">Khusi Kumari Asansol AI</span><span class="phone">+919339674853</span></li>
+    <li tabindex="0" data-phone="+918584025243" onclick="callNum('+918584025243')"><span class="name">S Mukhopadhyay</span><span class="phone">+918584025243</span></li>
+    <li tabindex="0" data-phone="8637572090" onclick="callNum('8637572090')"><span class="name">Mun Di 2</span><span class="phone">8637572090</span></li>
+  </ul>
+  <div id="status">Use Up/Down to navigate, Enter to call</div>
+
+<script>
+  let contacts = [
+    {name: "Aide cop", phone: "+919434691362"},
+    {name: "Satyaki brc", phone: "+919126176773"},
+    {name: "mousumi di", phone: "+918906160774"},
+    {name: "Chiru zoo", phone: "+917872522934"},
+    {name: "Complaint Helpline", phone: "198"},
+    {name: "Voice Station", phone: "55500"},
+    {name: "BalanceEnquiry", phone: "125"},
+    {name: "VAS Helpline", phone: "1214"},
+    {name: "Olga", phone: "+380686961914"},
+    {name: "Jayashree chandra", phone: "+918670567596"},
+    {name: "sudeshna goswami", phone: "+919732236045"},
+    {name: "krishnendu patra", phone: "+918942804795"},
+    {name: "Anurag Tanka NIA", phone: "8882888426"},
+    {name: "Saumitra Mohan DM sir", phone: "+919734750500"},
+    {name: "Annette Scolch Germany", phone: "+496221413362"},
+    {name: "Chrliranjit New Goyala", phone: "+917076080164"},
+    {name: "Pronoy", phone: "+919563566783"},
+    {name: "Koyel", phone: "+918372929701"},
+    {name: "Piu", phone: "+918759579686"},
+    {name: "Nilamjana 2", phone: "+918537058989"},
+    {name: "Soumyakanti RI", phone: "+919433567851"},
+    {name: "Shinjini RI", phone: "+918961239957"},
+    {name: "Subhasree Dey", phone: "+919614977504"},
+    {name: "Shrabani", phone: "+919474094025"},
+    {name: "Chitanjit Ghosh", phone: "+918906974375"},
+    {name: "Sunith Mondol", phone: "+919563791908"},
+    {name: "Mou Mompi", phone: "+918372953734"},
+    {name: "Satyajit Nandi", phone: "+919614596008"},
+    {name: "Buruniv Gal", phone: "+917031730238"},
+    {name: "Rumi Acharya", phone: "+919531710161"},
+    {name: "New BURDWAN DM", phone: "+919434050500"},
+    {name: "Bijoy SMART", phone: "8016945496"},
+    {name: "Distress Number", phone: "112"},
+    {name: "UIDAI", phone: "18003001947"},
+    {name: "Kanu Pioneer Cable", phone: "9333238608"},
+    {name: "Ramij BU Class", phone: "+919475693708"},
+    {name: "Rahul (Asrafuddoza Hazari)", phone: "+908927373384"},
+    {name: "G c Sir", phone: "+919434573881"},
+    {name: "Saroj Chakraborty", phone: "19733272755"},
+    {name: "Subho Sc Faculty BU", phone: "94340008414"},
+    {name: "Arup Biswas", phone: "+11917602754332"},
+    {name: "Aftabul Alam da", phone: "119153246630"},
+    {name: "Nirupana", phone: "+111917908630821"},
+    {name: "Abhishek Bhattacharya MA", phone: "+1917872181987"},
+    {name: "Rajat Da", phone: "7001572087"},
+    {name: "Gandhi", phone: "7001900065"},
+    {name: "Boro pCmoni", phone: "+919064701130"},
+    {name: "Subhasree Choubey", phone: "9083668608"},
+    {name: "Zerodahh", phone: "+918884002020"},
+    {name: "kaushik das", phone: "119775731777"},
+    {name: "Q unicorn", phone: "+917254844511"},
+    {name: "Mun Di", phone: "119647149717"},
+    {name: "Debismita", phone: "+91118372070230"},
+    {name: "Soumyodeep", phone: "+9129475155718"},
+    {name: "Arnab", phone: "+91669775044033"},
+    {name: "Puchki", phone: "+9189672695813"},
+    {name: "Sushma", phone: "+91119547382866"},
+    {name: "Agnibina Paul", phone: "+91669476353825"},
+    {name: "Maitree Mitra", phone: "+91229674169703"},
+    {name: "Souvik Da dada", phone: "+91118145036454"},
+    {name: "Niranjan Gupta", phone: "+918637365739"},
+    {name: "Shounak Mota", phone: "+85251350247"},
+    {name: "Jugol Da Water Joka 370-120", phone: "7003611010"},
+    {name: "Kartik Babu Principal Jamalpur", phone: "8918862082"},
+    {name: "Naba Sir", phone: "8918013887"},
+    {name: "Surya Mukherjee", phone: "+9129475317388"},
+    {name: "Ryan Coleman", phone: "+61447076295"},
+    {name: "Somnath Brc Raj College", phone: "+9916297923615"},
+    {name: "Bikky Chowdhury paramount Cake", phone: "9832920223"},
+    {name: "Dhar Brothers Thesis", phone: "03323508103"},
+    {name: "Jasmin Da", phone: "+9917001882850"},
+    {name: "Ma Ladakh 4g", phone: "+918900206383"},
+    {name: "Gautam Star Binding", phone: "+91009332291400"},
+    {name: "Gautam Da Star Binding", phone: "+91998240775476"},
+    {name: "Althina L'Croissoint", phone: "+133683539421"},
+    {name: "German DAAD scholarship", phone: "+447955126699"},
+    {name: "Suman Bir", phone: "8343029131"},
+    {name: "Khukudidi", phone: "03422541376"},
+    {name: "K", phone: "8900172768"},
+    {name: "Guru", phone: "8900030955"},
+    {name: "Anirban Roychiwdhyri", phone: "9434163363"},
+    {name: "Sunanda Garai", phone: "7074029850"},
+    {name: "Abhisek", phone: "+918272977969"},
+    {name: "Agan", phone: "8900503580"},
+    {name: "Me", phone: "8906778993"},
+    {name: "Sir wbcs new", phone: "9126037361"},
+    {name: "smart girl 1", phone: "+918906083188"},
+    {name: "smart ? 2", phone: "+918373052851"},
+    {name: "Arup Da bari", phone: "+918697983875"},
+    {name: "sayoni di smart", phone: "+919563950910"},
+    {name: "Sudeshna Goswami", phone: "+919474888679"},
+    {name: "Khukudi", phone: "+918918045131"},
+    {name: "Basu Cyclist", phone: "8926142725"},
+    {name: "Susovon Da", phone: "+918902297104"},
+    {name: "Mouli Hrs", phone: "+918240361353"},
+    {name: "Arindam Chowdhuri IIPM DA", phone: "+919999999988"},
+    {name: "animesh da", phone: "9564661492"},
+    {name: "Rajesh UNCLE NAINITAL", phone: "09411302912"},
+    {name: "Sajib Roy", phone: "+8801521309191"},
+    {name: "Sharif Bangladesh", phone: "+60173489486"},
+    {name: "Cifri", phone: "9732423332"},
+    {name: "Shantanu Tv", phone: "9635142315"},
+    {name: "Sudeshna Bookfair", phone: "8348064403"},
+    {name: "Payel Bu", phone: "8653890740"},
+    {name: "Xerox Da Sandip", phone: "+917098034417"},
+    {name: "Amit Gupta", phone: "9153056951"},
+    {name: "Sadhan Jamaibabu", phone: "9434167800"},
+    {name: "Sona North Bengal", phone: "7477587995"},
+    {name: "Sonamonididi", phone: "+14849453927"},
+    {name: "My Jio", phone: "7000770007"},
+    {name: "Rishitanu ghosh", phone: "9614228207"},
+    {name: "Kaka", phone: "9433233849"},
+    {name: "Bharu Abhishek Jha", phone: "+917001499031"},
+    {name: "Srikanta Kaku", phone: "9433894741"},
+    {name: "Dr. Udit Bhattacharya", phone: "9434673953"},
+    {name: "Amit Great eastern", phone: "8972752487"},
+    {name: "S Samanta", phone: "+919609425419"},
+    {name: "Ashwani Bhatia", phone: "+919046114611"},
+    {name: "Bikash Bandopadhyay", phone: "9434225289"},
+    {name: "Roshmi", phone: "8670414074"},
+    {name: "Akib Ali", phone: "+918509004736"},
+    {name: "Didivhai", phone: "9477942825"},
+    {name: "Titum Didi", phone: "9830497921"},
+    {name: "Arpita pal Brc", phone: "+918250331419"},
+    {name: "Shahid Leh", phone: "9596975213"},
+    {name: "Rocky Driver", phone: "9091408411"},
+    {name: "Saptarshi", phone: "+917001727374"},
+    {name: "Driver Da", phone: "8918814249"},
+    {name: "Nilanjan das", phone: "7872511584"},
+    {name: "Kasem Da", phone: "9474106488"},
+    {name: "Nitin Sir", phone: "+919711840658"},
+    {name: "Dr Shyamalendu Mitra", phone: "9433222433"},
+    {name: "Debmalya Da", phone: "9903400417"},
+    {name: "Sanjay Sir", phone: "9450614059"},
+    {name: "Riya wbcs", phone: "+918145733419"},
+    {name: "Ashwani Kumar", phone: "+918209237459"},
+    {name: "Srijani Roychowdhury", phone: "9749427646"},
+    {name: "Souvik Mitra Da Asansol", phone: "+918348438764"},
+    {name: "Gupta Sir Coimbatore", phone: "9418477211"},
+    {name: "Bilash Sir", phone: "7001694734"},
+    {name: "Utpal Bhattacharya Da", phone: "008250389663"},
+    {name: "Bubai Dutta Da", phone: "9647681397"},
+    {name: "emer", phone: "+330642905817"},
+    {name: "Arindam Sir", phone: "9868945422"},
+    {name: "Canara Bank", phone: "8348235229"},
+    {name: "Sourav DM", phone: "+918697924217"},
+    {name: "Madan Ghosh Electrician", phone: "9832290859"},
+    {name: "Syamdas Bandyopadhyay Sir Raj College", phone: "8509354332"},
+    {name: "Mehboob", phone: "9469466640"},
+    {name: "Sangita Banerjee Beauty", phone: "9614661646"},
+    {name: "Nikhil Ento", phone: "9999551477"},
+    {name: "Rittika Brc", phone: "+919382084018"},
+    {name: "Mousumi Univ", phone: "+917318753852"},
+    {name: "Angelina Cotton University", phone: "8731008098"},
+    {name: "Maitree Ghosh", phone: "+919434462950"},
+    {name: "Amogha Bangalore Christ University", phone: "+918762842989"},
+    {name: "Chitanjit New", phone: "+919083470854"},
+    {name: "Driver Leh", phone: "6006695426"},
+    {name: "Debasree Chatterjee", phone: "+919163817322"},
+    {name: "Munmun", phone: "8348480891"},
+    {name: "Debasis Kaka", phone: "7044746200"},
+    {name: "Tapan roy", phone: "9732074933"},
+    {name: "Koyel Bid Asansol", phone: "9046255124"},
+    {name: "Panigrahi Sir", phone: "7980174362"},
+    {name: "Atanu", phone: "+919932358655"},
+    {name: "Sakshie Bastola", phone: "+9779825140822"},
+    {name: "Anirban Mar", phone: "+919679146541"},
+    {name: "Puja Maity", phone: "9051086601"},
+    {name: "Jitu Kumar", phone: "8298298334"},
+    {name: "Amit Dutta Da Magh Utsav", phone: "+919832242296"},
+    {name: "Gaurav", phone: "+918697200200"},
+    {name: "Tanvir", phone: "9596525048"},
+    {name: "Akanksha Madam", phone: "+917042114839"},
+    {name: "Ritty Ritt", phone: "+79600887514"},
+    {name: "Sarbani Kakima", phone: "+919339022717"},
+    {name: "Paresh Sir", phone: "+919434572545"},
+    {name: "Q Sayantika Nath", phone: "+917278467990"},
+    {name: "Padmanabha Sir WA", phone: "9732064932"},
+    {name: "Rohin", phone: "+14843192670"},
+    {name: "Supu", phone: "9126834267"},
+    {name: "Pushan", phone: "+919475638261"},
+    {name: "Urmi", phone: "8653365515"},
+    {name: "Prasanna Babu", phone: "8373823931"},
+    {name: "Raju Mishra", phone: "+919810934380"},
+    {name: "LG Service", phone: "+919735182857"},
+    {name: "ARUP CHAKRABORTY", phone: "+919531637674"},
+    {name: "K G Sir", phone: "+917890525966"},
+    {name: "sarodiya di", phone: "+919475051744"},
+    {name: "Kerala Volunteers", phone: "+919061314516"},
+    {name: "Ramnarayan Badrinath Sir Jyotirmoy", phone: "+919167719898"},
+    {name: "A . Samanta", phone: "+918945995377"},
+    {name: "Soutan Rudea", phone: "8617471887"},
+    {name: "Kausik Sanyal", phone: "+918942958001"},
+    {name: "Pricom", phone: "9635682952"},
+    {name: "Niva Mondal", phone: "9851981654"},
+    {name: "Anindam Pal Ganesh", phone: "8167014221"},
+    {name: "Asish jamaibabu", phone: "+17816402756"},
+    {name: "Sneha Kundu Brc Ncc", phone: "+918942938506"},
+    {name: "Shafa Bu", phone: "+919679272902"},
+    {name: "Mamon Didi", phone: "+918927996268"},
+    {name: "Monika, Balurghat", phone: "7059955537"},
+    {name: "Mejopcmoni", phone: "+918918066561"},
+    {name: "Thulasi Amminikkutty", phone: "+918893910466"},
+    {name: "Idk Colg", phone: "9749926216"},
+    {name: "soma madam (college)", phone: "9830145545"},
+    {name: "SarmisthaDiSmart", phone: "+917478175033"},
+    {name: "Bubun", phone: "7001320797"},
+    {name: "Prity Giri", phone: "+918744005910"},
+    {name: "Indra Sir Hargobind", phone: "+919434215309"},
+    {name: "Entomology Journal", phone: "9999888931"},
+    {name: "Chandrachur Banerjee", phone: "+917063605220"},
+    {name: "Sayantani Dutta", phone: "8927430174"},
+    {name: "Guddu Da", phone: "7001405819"},
+    {name: "Mamima", phone: "7365988620"},
+    {name: "Subham w", phone: "+918906732726"},
+    {name: "Sajithaprakash", phone: "+918943672504"},
+    {name: "Jothirmoy Pakre Asansol", phone: "8167424790"},
+    {name: "DM Sir NEW", phone: "+919647570010"},
+    {name: "Arnab Dutta Rajsekhar Singer", phone: "+917001965561"},
+    {name: "Mri", phone: "9735980002"},
+    {name: "Chandan da (nSOU)", phone: "9641236045"},
+    {name: "Oindrilla Maity", phone: "8420561074"},
+    {name: "Rohit Bhaskar", phone: "+917797709977"},
+    {name: "Dr moloy Chowdhury", phone: "09818001111"},
+    {name: "Drm Suprabhat Mukherjee", phone: "9614813868"},
+    {name: "GC Sir New Wp", phone: "8637363743"},
+    {name: "Puspita", phone: "+918972716471"},
+    {name: "Q Sruti", phone: "+919681887745"},
+    {name: "Sourav Alliance", phone: "8420062960"},
+    {name: "Manas Sir Asansol", phone: "9434724768"},
+    {name: "Souvik Ronnie Jio", phone: "+919064136568"},
+    {name: "Rupsana smart", phone: "+918972000279"},
+    {name: "Rubu", phone: "+919832952216"},
+    {name: "Dr ATUL JOSHI KUMAYUN UNIVERSITY", phone: "09412327702"},
+    {name: "Dr. Samik Dutta", phone: "+642102431280"},
+    {name: "Sharmishtha Medda", phone: "7699345871"},
+    {name: "Dr subrata raha", phone: "9434198892"},
+    {name: "Ma Jio", phone: "+917908630821"},
+    {name: "Seija", phone: "8420734387"},
+    {name: "Rayven Okl", phone: "+14054819888"},
+    {name: "Nilanjan Das Bu", phone: "+918918344729"},
+    {name: "Sweety", phone: "+919093097889"},
+    {name: "Neyogi Bu", phone: "8961443510"},
+    {name: "Souvik Pan", phone: "+918327215491"},
+    {name: "Pinaki P Singha", phone: "+919874192102"},
+    {name: "Manojit", phone: "+919609928282"},
+    {name: "Ahana Mazumdar", phone: "+918391009304"},
+    {name: "Sp Kunal Sir", phone: "+918370800001"},
+    {name: "Madhavi Marjit", phone: "+919002164312"},
+    {name: "Jonok", phone: "+91009474779844"},
+    {name: "Pi Sir", phone: "+919495161601"},
+    {name: "Mohd Issa", phone: "+91007006773316"},
+    {name: "Barsha Sarkar", phone: "+917908417561"},
+    {name: "Gurudhan Hrs", phone: "+918013406708"},
+    {name: "Wipro Sir", phone: "+919831050785"},
+    {name: "Rumpa", phone: "+919732865666"},
+    {name: "Zaheer Da", phone: "+919830688316"},
+    {name: "Shweta Dey NSOU", phone: "7001987409"},
+    {name: "Rakesh Hati", phone: "+919609647143"},
+    {name: "Arpita di", phone: "+919531781410"},
+    {name: "Kapil da Kdm", phone: "+919474367677"},
+    {name: "Satyajeet", phone: "+917797499759"},
+    {name: "Q Rajarshi", phone: "+919903404799"},
+    {name: "Souvik Ronnie", phone: "+918538879885"},
+    {name: "Shubhankar Animal Science Dept Asansol", phone: "+918250458346"},
+    {name: "Shubhrajyoti Chattoraj", phone: "+916296151703"},
+    {name: "Soumalya da", phone: "+918670438192"},
+    {name: "Sayani roy", phone: "+917477417791"},
+    {name: "Pradip Asst Controller", phone: "8250053841"},
+    {name: "Souvik bhai DM", phone: "+918670775400"},
+    {name: "Ma", phone: "+919434667303"},
+    {name: "Parash Hrs", phone: "+919932013163"},
+    {name: "Mompi Indrani", phone: "+918250046890"},
+    {name: "Job Hunt Agency Teaching", phone: "+918116589863"},
+    {name: "Summit Biswas PhD Dept BU", phone: "+918617035048"},
+    {name: "Sourav Nandi Asansol", phone: "+919735126714"},
+    {name: "Swatilelha", phone: "+918900651423"},
+    {name: "Puvhu Bu", phone: "+919641631555"},
+    {name: "Dibya", phone: "+919564631590"},
+    {name: "Azharuddin", phone: "+919733057060"},
+    {name: "Yashbant Konar", phone: "+918759151544"},
+    {name: "Ma Vodafonr", phone: "+917797680323"},
+    {name: "Paramesesh", phone: "+919674922717"},
+    {name: "Sudip Sir", phone: "9434788139"},
+    {name: "Ashok Da", phone: "+919732160904"},
+    {name: "R", phone: "9474409796"},
+    {name: "Tuhina Goswami", phone: "6290833139"},
+    {name: "Sona Fish", phone: "8768203323"},
+    {name: "Univ New Girl", phone: "+918906841974"},
+    {name: "Joyontomama", phone: "+916297699652"},
+    {name: "Souvik Kolsi Hrs", phone: "+918886942828"},
+    {name: "Dr. Om shankar Dubey", phone: "9451339078"},
+    {name: "Dr. Sourabh Sulabh Asansol Knu", phone: "+918707431459"},
+    {name: "Rabi Sir", phone: "+9710566395780"},
+    {name: "Principal Ramkrishn Sir", phone: "+919832236657"},
+    {name: "Chandan Babu", phone: "+919475050403"},
+    {name: "Librarian Sir", phone: "9932336572"},
+    {name: "Chitralekha", phone: "+917908472725"},
+    {name: "Ananya Chatterjee", phone: "+918159990110"},
+    {name: "Suraj Kumthekar", phone: "+917387908490"},
+    {name: "Deblina Nag", phone: "+917478344100"},
+    {name: "Anirban Ash", phone: "9433303480"},
+    {name: "Topper Krishnendu", phone: "+919002013962"},
+    {name: "Flipkart", phone: "8158993268"},
+    {name: "Nanda Bandopadhyay", phone: "8697527939"},
+    {name: "Manna Refrigeration", phone: "9734259668"},
+    {name: "Prosenjit", phone: "7407640083"},
+    {name: "Tridip Babu", phone: "9475123934"},
+    {name: "Pradipta Da", phone: "+919475637117"},
+    {name: "Moon", phone: "+919647149717"},
+    {name: "Farha Yasmin", phone: "7076762951"},
+    {name: "subhasis da", phone: "+918514082981"},
+    {name: "Joyonto Mama", phone: "+919800185443"},
+    {name: "Rajesh Sir", phone: "+919088899988"},
+    {name: "VC Sir", phone: "9051342474"},
+    {name: "Ankita Asansol", phone: "+917908104742"},
+    {name: "Sanju Da Muchipara Xerox", phone: "9679155687"},
+    {name: "Ayan Da", phone: "6295157219"},
+    {name: "Yashbant Konarrr", phone: "+916297282881"},
+    {name: "Zsi Call", phone: "7906220339"},
+    {name: "Surya Jamaibabu", phone: "8584025244"},
+    {name: "Sumanta Da", phone: "+919564540150"},
+    {name: "Arpita Di", phone: "+919614690656"},
+    {name: "Rajkumar", phone: "+919932240164"},
+    {name: "Nilanjana", phone: "+919593636729"},
+    {name: "Debidas Mondol", phone: "9434391456"},
+    {name: "Souvik A Section Hrs", phone: "+919093266929"},
+    {name: "Rajsekhar", phone: "+916294189537"},
+    {name: "Pahari Sir", phone: "9474484735"},
+    {name: "Sangita Bhowmick", phone: "+917863931650"},
+    {name: "Car Driver", phone: "+917679410446"},
+    {name: "Shounak Das", phone: "+918372856338"},
+    {name: "Trisha", phone: "+918967494799"},
+    {name: "Chittababu", phone: "+919433621872"},
+    {name: "Anup Pine", phone: "8945039497"},
+    {name: "Arabinda Mondol", phone: "9064638344"},
+    {name: "Rishi Nephew", phone: "+919800525437"},
+    {name: "Bamda", phone: "9153367464"},
+    {name: "Kalpita", phone: "+918346057368"},
+    {name: "Maitri Brc Raj College", phone: "9475187064"},
+    {name: "Xerooo", phone: "8371878211"},
+    {name: "Parna Ganguly", phone: "+917583930822"},
+    {name: "Rahul Jash", phone: "9933156782"},
+    {name: "Chandan JHA", phone: "8906305439"},
+    {name: "Q Admin 1", phone: "+918961252476"},
+    {name: "Srijata Madam", phone: "9474921304"},
+    {name: "Rupal Hrs", phone: "+919735864373"},
+    {name: "Jagatpati Sir", phone: "+917908809553"},
+    {name: "Supra Stores Water", phone: "9681401563"},
+    {name: "Srikanta Nabagram", phone: "+919932380960"},
+    {name: "Soumen Sir Choto", phone: "9563529012"},
+    {name: "Mesomosai", phone: "8389951029"},
+    {name: "Soumen Sir Zoology", phone: "+919474780619"},
+    {name: "Asifa law Officer Holy Rock School", phone: "+916294470105"},
+    {name: "Piya Mehta", phone: "+916294388404"},
+    {name: "Delhi Botany Sir", phone: "9810484797"},
+    {name: "Shounak roga", phone: "9475884196"},
+    {name: "Surjoda", phone: "+919002072567"},
+    {name: "Bolorum Da", phone: "9734030586"},
+    {name: "Nbu", phone: "9477358314"},
+    {name: "Pradip Mitra EVs BU", phone: "+918944041950"},
+    {name: "Narayan da Doctor", phone: "8334900993"},
+    {name: "Dr. Ramakant Pandey", phone: "+919430252492"},
+    {name: "Anirban Ash Sir", phone: "+918910506379"},
+    {name: "Rajni", phone: "+917679334610"},
+    {name: "Sreya Bu", phone: "+919735099643"},
+    {name: "Banya De", phone: "+916291490067"},
+    {name: "Abhiroop", phone: "8017654653"},
+    {name: "Aurodeep hrs", phone: "+919475124675"},
+    {name: "Dr. Dilip Das", phone: "+64272926787"},
+    {name: "Jeet", phone: "8537827788"},
+    {name: "Kaushik Computer", phone: "9832876826"},
+    {name: "Dr. Surat Sheikh. Economice", phone: "+919609246992"},
+    {name: "Sanchita hRS", phone: "+917797815506"},
+    {name: "Deepak Driver", phone: "9755976767"},
+    {name: "Adrija  Banerjee", phone: "9635193003"},
+    {name: "Nunam", phone: "+917003507627"},
+    {name: "Pink Floyd RI", phone: "+917044304663"},
+    {name: "Surajit Sir", phone: "9434547165"},
+    {name: "SP Mam", phone: "+917980212897"},
+    {name: "S P Ma'm", phone: "+919831066186"},
+    {name: "Althina L'crossiont", phone: "+92683539421"},
+    {name: "Sourav Debnath ASANSOL", phone: "+917980435688"},
+    {name: "Shampa Bag", phone: "+918637385177"},
+    {name: "Dev Sadhu", phone: "+919476100637"},
+    {name: "Chandrima junior", phone: "+919476106919"},
+    {name: "Nil", phone: "9749733587"},
+    {name: "Ankita Suprabhat Sir Lab", phone: "+917479201789"},
+    {name: "Bijoy Smart", phone: "+919434835334"},
+    {name: "Y Ravhubangshi", phone: "+918697111626"},
+    {name: "Achintamama", phone: "8372953756"},
+    {name: "Diya Banerjee", phone: "+918101630920"},
+    {name: "Souvik Adhikari New", phone: "+919800681294"},
+    {name: "Buddhadve Sir", phone: "9734259381"},
+    {name: "Guide Camera", phone: "9007820316"},
+    {name: "Abhijit SARKAR Sanskrit", phone: "+917584854122"},
+    {name: "Q admin 2", phone: "+919088997861"},
+    {name: "Chinmoy Roy", phone: "+919883850654"},
+    {name: "Dasgupta Sir", phone: "+918447405628"},
+    {name: "Rupa Di Chotobelun", phone: "7908843394"},
+    {name: "Mousumidi", phone: "+917384569995"},
+    {name: "Rupee Pandey", phone: "+918768750711"},
+    {name: "Golam", phone: "+917602509236"},
+    {name: "Abhisek Bu Scholarship", phone: "9474594363"},
+    {name: "Haribansha", phone: "9647735800"},
+    {name: "Debkumar Da", phone: "7384246195"},
+    {name: "Poulomi Roy", phone: "+91008637525761"},
+    {name: "Samapti", phone: "+918481830689"},
+    {name: "Aaaaa", phone: "9434466853"},
+    {name: "Pranoy", phone: "8101004370"},
+    {name: "Arunima Bu", phone: "9681448918"},
+    {name: "Bisnu Jio", phone: "+917908653197"},
+    {name: "Q Pratiti Guha", phone: "+918792341624"},
+    {name: "Anirban Ghosh", phone: "+919647576904"},
+    {name: "PK Ray", phone: "+918584000818"},
+    {name: "Abhijit sir", phone: "9434834258"},
+    {name: "Geeta Mal", phone: "+917718625050"},
+    {name: "Chandrima Mondal", phone: "+919434100209"},
+    {name: "Q Abhigyan Chakraborty", phone: "+917908308197"},
+    {name: "Prof Mrinal Basu ICAR", phone: "+919433010986"},
+    {name: "Gauri Kalu", phone: "9475800845"},
+    {name: "Asamanja Chattoraj Asansol", phone: "+919436280230"},
+    {name: "Bhanu Nabagram Mobile", phone: "+918170856348"},
+    {name: "Chotopisi", phone: "+919875657589"},
+    {name: "Amena", phone: "+918436742768"},
+    {name: "Satya Pharmacy", phone: "+919609187184"},
+    {name: "Khusi Kumari Asansol AI", phone: "+919339674853"},
+    {name: "S Mukhopadhyay", phone: "+918584025243"},
+    {name: "Mun Di 2", phone: "8637572090"},
+  ];
+
+  let currentIndex = 0;
+  
+  function renderList(filtered) {
+    let ul = document.getElementById('list');
+    ul.innerHTML = '';
+    filtered.forEach((c, idx) => {
+      let li = document.createElement('li');
+      if(idx === currentIndex) li.className = 'selected';
+      li.innerHTML = '<span class="name">' + c.name + '</span><span class="phone">' + c.phone + '</span>';
+      li.onclick = () => callNum(c.phone);
+      ul.appendChild(li);
+    });
+  }
+
+  function filterList() {
+    let q = document.getElementById('search').value.toLowerCase();
+    let filtered = contacts.filter(c => c.name.toLowerCase().includes(q) || c.phone.includes(q));
+    currentIndex = 0;
+    renderList(filtered);
+  }
+
+  function callNum(num) {
+    window.location.href = 'tel:' + num;
+  }
+
+  document.addEventListener('keydown', function(e) {
+    let items = document.querySelectorAll('#list li');
+    if(items.length === 0) return;
+    
+    if(e.key === 'ArrowDown' || e.key === '2') {
+      currentIndex = (currentIndex + 1) % items.length;
+      updateSelection(items);
+      e.preventDefault();
+    } else if(e.key === 'ArrowUp' || e.key === '8') {
+      currentIndex = (currentIndex - 1 + items.length) % items.length;
+      updateSelection(items);
+      e.preventDefault();
+    } else if(e.key === 'Enter' || e.key === '5') {
+      items[currentIndex].click();
+      e.preventDefault();
+    }
+  });
+
+  function updateSelection(items) {
+    items.forEach((item, idx) => {
+      if(idx === currentIndex) {
+        item.className = 'selected';
+        item.scrollIntoView({block: 'nearest'});
+      } else {
+        item.className = '';
+      }
+    });
+  }
+</script>
+</body>
+</html>
